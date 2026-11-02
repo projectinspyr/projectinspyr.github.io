@@ -1,26 +1,278 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ───────────── Design tokens ─────────────
+   Navy is the ground. Red is action. Yellow is the spark.
+   Contrast notes (WCAG):
+   - white on navy-800: 12.6:1        - navy-200 on navy-800: 8:1
+   - spark on navy-800: 8:1           - signal on navy-800: 3.4:1 (large text only)
+   - white on signal-deep: 4.6:1      - signal-ink on paper: 6.1:1
+*/
+@theme {
+  --color-navy-950: #050d1b;
+  --color-navy-900: #0a1a33;
+  --color-navy-850: #0f2446;
+  --color-navy-800: #14305a;
+  --color-navy-700: #1b3d70;
+  --color-navy-600: #244c87;
+  --color-navy-500: #34609f;
+  --color-navy-300: #8ea6cb;
+  --color-navy-200: #bccbe2;
+  --color-navy-100: #e3eaf5;
+
+  --color-signal: #f23a3a;
+  --color-signal-deep: #dc2c2c;
+  --color-signal-ink: #b01e1e;
+
+  --color-spark: #f5c518;
+  --color-spark-soft: #ffe27a;
+
+  --color-paper: #f6f1e7;
+  --color-paper-deep: #e9e0cd;
+  --color-cream: #fbf8f2;
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-swing: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ───────────── Base ───────────── */
+@layer base {
+  html {
+    background: var(--color-navy-800);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    min-height: 100svh;
+    background: var(--color-navy-800);
+    color: #fff;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-spark);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-spark);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .on-paper :focus-visible {
+    outline-color: var(--color-navy-800);
+  }
+
+  [hidden] {
+    display: none !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ───────────── Texture ───────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.tape {
+  position: absolute;
+  height: 26px;
+  width: 92px;
+  background: rgb(245 197 24 / 0.78);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+  clip-path: polygon(3% 0, 97% 4%, 100% 50%, 96% 100%, 2% 96%, 0 48%);
+}
+
+/* ───────────── Reveal on scroll ─────────────
+   Elements with data-reveal fade up when they enter the viewport.
+   The `js` class is set before paint, so no-JS visitors see everything. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.8s var(--ease-spring),
+    transform 0.9s var(--ease-spring);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ───────────── Hero entrance (CSS only, no JS needed) ───────────── */
+.rise-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+.rise-mask > span {
+  display: inline-block;
+  animation: rise 1.05s var(--ease-spring) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.fade-up {
+  animation: fade-up 0.9s var(--ease-spring) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes rise {
+  from {
+    transform: translate3d(0, 104%, 0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0.01;
+    transform: translate3d(0, 18px, 0);
+  }
+}
+
+/* ───────────── The bridge ───────────── */
+.bridge-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 1.5s var(--ease-swing) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.bridge-hanger {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+  animation: hang 0.8s var(--ease-spring) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.bridge-pop {
+  opacity: 0;
+  animation: pop-in 0.7s var(--ease-spring) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.bridge-static {
+  display: none;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hang {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pop-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ───────────── Marquee ───────────── */
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ───────────── Squiggle underline ───────────── */
+.squiggle-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: squiggle 1s var(--ease-swing) forwards;
+  animation-delay: var(--d, 900ms);
+}
+
+@keyframes squiggle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ───────────── Details / FAQ ───────────── */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ───────────── Reduced motion: everything settles in place ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .bridge-anim {
+    display: none;
+  }
+
+  .bridge-static {
+    display: inline;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
 }
