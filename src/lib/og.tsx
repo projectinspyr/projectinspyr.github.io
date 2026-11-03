@@ -44,9 +44,15 @@ ${Array.from({ length: 19 }, (_, i) => {
 
 export async function renderOg({ title, eyebrow }: { title: string; eyebrow: string }) {
   const [display, body, rounded] = await fonts;
-  const words = segments(title).flatMap((seg) =>
-    seg.text.split(/(\s+)/).filter((w) => w.trim()).map((w) => ({ w, color: seg.color })),
-  );
+  // `glue` keeps punctuation that follows a highlight (like the full stop in "story.") attached to it.
+  const segs = segments(title);
+  const words = segs.flatMap((seg, s) => {
+    const touchesPrev = s > 0 && !/^\s/.test(seg.text) && !/\s$/.test(segs[s - 1].text);
+    return seg.text
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((w, i) => ({ w, color: seg.color, glue: i === 0 && touchesPrev }));
+  });
 
   return new ImageResponse(
     (
@@ -88,7 +94,7 @@ export async function renderOg({ title, eyebrow }: { title: string; eyebrow: str
           }}
         >
           {words.map((word, i) => (
-            <span key={i} style={{ color: word.color, marginRight: 24 }}>
+            <span key={i} style={{ color: word.color, marginLeft: i === 0 || word.glue ? 0 : 24 }}>
               {word.w}
             </span>
           ))}
@@ -97,10 +103,6 @@ export async function renderOg({ title, eyebrow }: { title: string; eyebrow: str
         <div style={{ display: "flex", position: "absolute", left: 0, right: 0, bottom: -34 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`data:image/svg+xml;base64,${Buffer.from(bridge).toString("base64")}`} width={1200} height={340} alt="" />
-        </div>
-
-        <div style={{ display: "flex", position: "absolute", right: 72, bottom: 36, fontSize: 22, color: "#bccbe2" }}>
-          {site.location.city}, {site.location.country}
         </div>
       </div>
     ),
