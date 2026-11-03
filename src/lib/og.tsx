@@ -46,12 +46,18 @@ export async function renderOg({ title, eyebrow }: { title: string; eyebrow: str
   const [display, body, rounded] = await fonts;
   // `glue` keeps punctuation that follows a highlight (like the full stop in "story.") attached to it.
   const segs = segments(title);
-  const words = segs.flatMap((seg, s) => {
+  // Each word is a list of coloured parts, so a glued full stop stays on the same line as its word.
+  const words: Array<Array<{ w: string; color: string }>> = [];
+  segs.forEach((seg, s) => {
     const touchesPrev = s > 0 && !/^\s/.test(seg.text) && !/\s$/.test(segs[s - 1].text);
-    return seg.text
+    seg.text
       .split(/\s+/)
       .filter(Boolean)
-      .map((w, i) => ({ w, color: seg.color, glue: i === 0 && touchesPrev }));
+      .forEach((w, i) => {
+        const part = { w, color: seg.color };
+        if (i === 0 && touchesPrev && words.length) words[words.length - 1].push(part);
+        else words.push([part]);
+      });
   });
 
   return new ImageResponse(
@@ -90,13 +96,18 @@ export async function renderOg({ title, eyebrow }: { title: string; eyebrow: str
             fontSize: words.length > 6 ? 84 : 104,
             lineHeight: 0.98,
             letterSpacing: "-0.04em",
+            columnGap: 24,
             maxWidth: 1100,
           }}
         >
-          {words.map((word, i) => (
-            <span key={i} style={{ color: word.color, marginLeft: i === 0 || word.glue ? 0 : 24 }}>
-              {word.w}
-            </span>
+          {words.map((parts, i) => (
+            <div key={i} style={{ display: "flex" }}>
+              {parts.map((part, j) => (
+                <span key={j} style={{ color: part.color }}>
+                  {part.w}
+                </span>
+              ))}
+            </div>
           ))}
         </div>
 
