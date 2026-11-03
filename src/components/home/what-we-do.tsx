@@ -10,7 +10,7 @@ function VolunteerArt() {
   return (
     <svg viewBox="0 0 240 150" aria-hidden className="h-auto w-full max-w-[260px]">
       <rect x="62" y="70" width="116" height="44" rx="6" fill="#f5c518" />
-      <path d="M62 86h116" stroke="#0a1a33" strokeOpacity=".25" strokeWidth="3" />
+      <path d="M62 86h116" stroke="#071328" strokeOpacity=".25" strokeWidth="3" />
       {[40, 120, 200].map((x, i) => (
         <g key={x}>
           <circle cx={x} cy={i === 1 ? 26 : 40} r="13" fill={i === 1 ? "#f23a3a" : "#fbf8f2"} />
@@ -25,7 +25,7 @@ function VolunteerArt() {
 function PhoneArt() {
   return (
     <svg viewBox="0 0 150 230" aria-hidden className="h-auto w-[132px] sm:w-[150px]">
-      <rect x="6" y="4" width="138" height="222" rx="24" fill="#0a1a33" stroke="#fbf8f2" strokeOpacity=".7" strokeWidth="3" />
+      <rect x="6" y="4" width="138" height="222" rx="24" fill="#071328" stroke="#fbf8f2" strokeOpacity=".7" strokeWidth="3" />
       <rect x="56" y="14" width="38" height="7" rx="3.5" fill="#fbf8f2" fillOpacity=".35" />
       <circle cx="75" cy="104" r="26" fill="#f23a3a" />
       <path d="m68 92 20 12-20 12Z" fill="#fff" />

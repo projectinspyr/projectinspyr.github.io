@@ -45,7 +45,7 @@ export function Rich({ text, underline, onPaper }: RichProps) {
           <span key={i} className={cn("relative whitespace-nowrap", color)}>
             {seg.text}
             {underline && seg.tone === "spark" && !onPaper && (
-              <Squiggle className="pointer-events-none absolute -bottom-[0.14em] left-0 h-[0.22em] w-full text-signal" draw />
+              <Squiggle className="pointer-events-none absolute -bottom-[0.08em] left-[2%] h-[0.11em] w-[96%] w-full text-signal" draw />
             )}
           </span>
         );

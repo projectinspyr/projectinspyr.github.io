@@ -3,18 +3,18 @@
 /* ───────────── Design tokens ─────────────
    Navy is the ground. Red is action. Yellow is the spark.
    Contrast notes (WCAG):
-   - white on navy-800: 12.6:1        - navy-200 on navy-800: 8:1
-   - spark on navy-800: 8:1           - signal on navy-800: 3.4:1 (large text only)
+   - white on navy-800: 15.4:1        - navy-200 on navy-800: 9.8:1
+   - spark on navy-800: 9.9:1         - signal on navy-800: 4.2:1 (large text only)
    - white on signal-deep: 4.6:1      - signal-ink on paper: 6.1:1
 */
 @theme {
-  --color-navy-950: #050d1b;
-  --color-navy-900: #0a1a33;
-  --color-navy-850: #0f2446;
-  --color-navy-800: #14305a;
-  --color-navy-700: #1b3d70;
-  --color-navy-600: #244c87;
-  --color-navy-500: #34609f;
+  --color-navy-950: #040b17;
+  --color-navy-900: #071328;
+  --color-navy-850: #0b1b36;
+  --color-navy-800: #0e2241;
+  --color-navy-700: #16305a;
+  --color-navy-600: #1e3f72;
+  --color-navy-500: #2b5391;
   --color-navy-300: #8ea6cb;
   --color-navy-200: #bccbe2;
   --color-navy-100: #e3eaf5;
@@ -38,6 +38,7 @@
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
+  --font-logo: var(--font-fredoka), ui-rounded, sans-serif;
 }
 
 /* ───────────── Base ───────────── */
@@ -45,6 +46,7 @@
   html {
     background: var(--color-navy-800);
     color-scheme: dark;
+    overflow-x: clip;
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: 6rem;
   }
@@ -136,8 +138,8 @@
 .rise-mask {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.2em;
-  margin-bottom: -0.2em;
+  padding-bottom: 0.34em;
+  margin-bottom: -0.34em;
 }
 
 .rise-mask > span {
@@ -224,16 +226,16 @@
 }
 
 /* ───────────── Squiggle underline ───────────── */
+/* Wiped in left to right with a clip, so it always draws the full width. */
 .squiggle-draw {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: squiggle 1s var(--ease-swing) forwards;
+  clip-path: inset(0 100% 0 0);
+  animation: squiggle 0.9s var(--ease-swing) forwards;
   animation-delay: var(--d, 900ms);
 }
 
 @keyframes squiggle {
   to {
-    stroke-dashoffset: 0;
+    clip-path: inset(0 0 0 0);
   }
 }
 

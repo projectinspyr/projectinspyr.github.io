@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Caveat, Instrument_Sans } from "next/font/google";
+import { Bricolage_Grotesque, Caveat, Fredoka, Instrument_Sans } from "next/font/google";
 import { site } from "@content/site";
 import { Analytics } from "@/components/analytics";
 import { Footer } from "@/components/layout/footer";
@@ -19,6 +19,14 @@ const display = Bricolage_Grotesque({
 const body = Instrument_Sans({
   variable: "--font-instrument",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Rounded face for the INSPYR logo lockup.
+const logo = Fredoka({
+  variable: "--font-fredoka",
+  subsets: ["latin"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -50,7 +58,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#14305a",
+  themeColor: "#0e2241",
   colorScheme: "dark",
 };
 
@@ -58,7 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-IN"
-      className={`${display.variable} ${body.variable} ${hand.variable}`}
+      className={`${display.variable} ${body.variable} ${logo.variable} ${hand.variable}`}
       suppressHydrationWarning
     >
       <head>

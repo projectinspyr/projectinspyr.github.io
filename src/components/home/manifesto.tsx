@@ -3,32 +3,38 @@
 import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 import { home } from "@content/pages/home";
-import { cn } from "@/lib/utils";
 import { parseRich, toneClass, type Tone } from "../ui/rich";
 import { Container, Eyebrow } from "../ui/section";
 
-type Word = { text: string; tone: Tone; index: number };
+/** `glue` marks a word that touches the previous one, like the full stop after a highlight. */
+type Word = { text: string; tone: Tone; index: number; glue: boolean };
 
 function toWords(paragraphs: string[]) {
   let index = 0;
-  return paragraphs.map((p) =>
-    parseRich(p).flatMap((seg) =>
-      seg.text
+  return paragraphs.map((p) => {
+    const segs = parseRich(p);
+    return segs.flatMap((seg, s) => {
+      const touchesPrev = s > 0 && !/^\s/.test(seg.text) && !/\s$/.test(segs[s - 1].text);
+      return seg.text
         .split(/\s+/)
         .filter(Boolean)
-        .map((text) => ({ text, tone: seg.tone, index: index++ }) as Word),
-    ),
-  );
+        .map((text, w) => ({ text, tone: seg.tone, index: index++, glue: w === 0 && touchesPrev }) as Word);
+    });
+  });
 }
 
 const paragraphs = toWords(home.manifesto.paragraphs);
 const total = paragraphs.flat().length;
 
+// Unlit words stay readable (3.4:1 on the section background) and warm to their colour as they light up.
+const UNLIT = "#5a6780";
+const LIT: Record<Tone, string> = { plain: "#ffffff", spark: "#f5c518", signal: "#f23a3a" };
+
 function ScrollWord({ word, progress }: { word: Word; progress: MotionValue<number> }) {
   const start = word.index / total;
-  const opacity = useTransform(progress, [start, start + 1.5 / total], [0.16, 1]);
+  const color = useTransform(progress, [start, start + 1.5 / total], [UNLIT, LIT[word.tone]]);
   return (
-    <m.span style={{ opacity }} className={cn("inline-block", toneClass[word.tone])}>
+    <m.span style={{ color }} className="inline-block">
       {word.text}
     </m.span>
   );
@@ -47,17 +53,17 @@ export function Manifesto() {
         <Eyebrow className="mb-10">
           <span id="manifesto-title">{home.manifesto.eyebrow}</span>
         </Eyebrow>
-        <div ref={ref} className="max-w-[22ch] space-y-[0.7em] font-display text-[clamp(1.85rem,5.4vw,4.5rem)] font-bold leading-[1.06] tracking-[-0.03em] sm:max-w-[24ch]">
+        <div ref={ref} className="max-w-[22ch] space-y-[1.3em] font-display text-[clamp(1.7rem,5vw,4.1rem)] font-bold leading-[1.13] tracking-[-0.028em] sm:max-w-[24ch]">
           {paragraphs.map((words, p) => (
-            <p key={p} className={p === 0 ? "text-[1.18em] font-extrabold" : undefined}>
+            <p key={p} className={p === 0 ? "pb-[0.25em] text-[1.18em] font-extrabold leading-[1.04]" : undefined}>
               {words.map((word, i) => (
                 <span key={word.index}>
+                  {i > 0 && !word.glue ? " " : ""}
                   {reduced ? (
                     <span className={toneClass[word.tone]}>{word.text}</span>
                   ) : (
                     <ScrollWord word={word} progress={scrollYProgress} />
                   )}
-                  {i < words.length - 1 ? " " : ""}
                 </span>
               ))}
             </p>

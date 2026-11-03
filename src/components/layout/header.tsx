@@ -75,8 +75,9 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-[72px] w-full max-w-[1320px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
-        <Link href="/" className="relative z-10 text-[1.35rem] text-white" aria-label="Project INSPYR, home">
-          <Wordmark />
+        <Link href="/" className="relative z-10 -my-1 block">
+          <Wordmark id="logo-header" showLine={false} className="w-[118px] sm:w-[132px]" />
+          <span className="sr-only">Project INSPYR home</span>
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">

@@ -13,9 +13,9 @@ export type SendResult = { ok: true; mode: "sent" | "logged" } | { ok: false; re
 function render(rows: Outgoing["rows"]) {
   const filled = rows.filter((row): row is [string, string] => Boolean(row[1]));
   const text = filled.map(([label, value]) => `${label}:\n${value}`).join("\n\n");
-  const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#f6f1e7;font-family:Arial,Helvetica,sans-serif;color:#0a1a33">
+  const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#f6f1e7;font-family:Arial,Helvetica,sans-serif;color:#071328">
 <table role="presentation" width="100%" style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:12px;border:1px solid #e9e0cd">
-<tr><td style="padding:20px 24px;background:#14305a;border-radius:12px 12px 0 0;color:#ffffff;font-weight:bold;letter-spacing:.08em">PROJECT INSPYR <span style="color:#f5c518">&#10022;</span></td></tr>
+<tr><td style="padding:20px 24px;background:#0e2241;border-radius:12px 12px 0 0;color:#ffffff;font-weight:bold;letter-spacing:.08em">PROJECT INSPYR <span style="color:#f5c518">&#10022;</span></td></tr>
 ${filled
   .map(
     ([label, value]) =>

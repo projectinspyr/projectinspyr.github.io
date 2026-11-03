@@ -3,10 +3,20 @@
 import { m } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { scroller } from "./smooth-scroll";
+
+// When the last back/forward navigation happened, so it can keep its restored scroll.
+let lastPop = 0;
+if (typeof window !== "undefined") {
+  window.addEventListener("popstate", () => {
+    lastPop = Date.now();
+  });
+}
 
 /**
  * Page transition: a spark crosses the top of the screen while the new page
- * eases in. Skipped on first load and for reduced motion.
+ * eases in. Every new page starts at its top (or at its #anchor); browser
+ * back and forward keep the position the browser restores.
  */
 export function RouteProgress() {
   const pathname = usePathname();
@@ -19,7 +29,16 @@ export function RouteProgress() {
   }
 
   useEffect(() => {
-    if (run === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (run === 0) return;
+
+    if (Date.now() - lastPop > 400) {
+      const target = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
+      const y = target ? target.getBoundingClientRect().top + window.scrollY - 96 : 0;
+      scroller.lenis?.scrollTo(y, { immediate: true, force: true });
+      window.scrollTo({ top: y, behavior: "instant" });
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     document.getElementById("main")?.animate(
       [
         { opacity: 0, transform: "translate3d(0, 14px, 0)" },

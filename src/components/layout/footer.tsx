@@ -2,16 +2,21 @@ import Link from "next/link";
 import { site } from "@content/site";
 import { socialLinks } from "@content/social";
 import { BridgeDivider } from "../brand/bridge-divider";
+import { Wordmark } from "../brand/wordmark";
 import { Container } from "../ui/section";
-import { InstagramGlyph, MailGlyph, Spark, YouTubeGlyph } from "../ui/doodles";
+import { InstagramGlyph, MailGlyph, YouTubeGlyph } from "../ui/doodles";
 
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-navy-950 pt-6 text-white">
       <BridgeDivider className="text-white/15" />
       <Container className="pt-14">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
-          <div>
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.7fr_1fr]">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="mb-8 inline-block">
+              <Wordmark id="logo-footer" className="w-[170px]" />
+              <span className="sr-only">Project INSPYR, led by students: home</span>
+            </Link>
             <p className="max-w-sm font-display text-3xl font-bold leading-tight tracking-[-0.02em]">
               Bridging the people doing good work and the people who should{" "}
               <span className="text-spark">see it</span>.
@@ -66,11 +71,22 @@ export function Footer() {
         </div>
       </Container>
 
+      {/* Decorative watermark, drawn as SVG so it reads as artwork rather than text. */}
       <div aria-hidden className="mt-16 select-none overflow-hidden">
-        <p className="flex items-center justify-center gap-[0.12em] whitespace-nowrap font-display text-[19vw] font-extrabold leading-[0.78] tracking-[-0.05em] text-navy-850">
-          INSPYR
-          <Spark className="size-[0.32em] text-spark/80" />
-        </p>
+        <svg viewBox="0 0 1000 190" className="mx-auto block h-auto w-full max-w-[1500px]">
+          <text
+            x="470"
+            y="182"
+            textAnchor="middle"
+            fill="#0b1b36"
+            fontFamily="var(--font-fredoka), sans-serif"
+            fontWeight={700}
+            fontSize="232"
+            letterSpacing="-4"
+          >
+            INSPYR
+          </text>
+        </svg>
       </div>
 
       <div className="border-t border-white/10">

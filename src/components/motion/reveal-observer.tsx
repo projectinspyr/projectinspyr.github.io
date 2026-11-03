@@ -16,9 +16,12 @@ export function RevealObserver() {
       { rootMargin: "0px 0px -6% 0px", threshold: 0.06 },
     );
 
+    // Tracked in memory, not as an attribute, so server HTML stays untouched before hydration.
+    const seen = new WeakSet<Element>();
     const scan = () => {
-      document.querySelectorAll("[data-reveal]:not([data-observed])").forEach((el) => {
-        el.setAttribute("data-observed", "");
+      document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((el) => {
+        if (seen.has(el)) return;
+        seen.add(el);
         io.observe(el);
       });
     };

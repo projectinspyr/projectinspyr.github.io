@@ -17,7 +17,7 @@ export function PageHero({ eyebrow, title, intro, children }: PageHeroProps) {
   return (
     <section aria-labelledby="page-title" className="relative isolate overflow-hidden bg-navy-800 pt-32 sm:pt-40">
       <div aria-hidden className="dot-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_30%_10%,black_10%,transparent_65%)]" />
-      <div aria-hidden className="absolute -right-32 top-0 -z-10 size-[460px] rounded-full bg-spark/10 blur-[120px]" />
+      <div aria-hidden className="absolute -right-32 top-0 -z-10 size-[460px] rounded-full bg-spark/[0.06] blur-[120px]" />
       <Container>
         <Eyebrow className="fade-up" >
           {eyebrow}

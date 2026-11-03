@@ -20,7 +20,6 @@ export function Squiggle({ draw, ...props }: DoodleProps & { draw?: boolean }) {
         {...stroke}
         strokeWidth={4}
         vectorEffect="non-scaling-stroke"
-        pathLength={1}
         className={draw ? "squiggle-draw" : undefined}
       />
     </svg>

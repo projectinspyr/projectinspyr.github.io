@@ -18,8 +18,8 @@ function halfArch(from: number, to: number) {
 export function BrokenBridge({ className }: { className?: string }) {
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className={className} aria-hidden>
-      <path d={`M0 ${deckY} H${left + 30} L${left + 6} ${height} H0 Z`} fill="#1b3d70" />
-      <path d={`M${width} ${deckY} H${right - 30} L${right - 6} ${height} H${width} Z`} fill="#1b3d70" />
+      <path d={`M0 ${deckY} H${left + 30} L${left + 6} ${height} H0 Z`} fill="#16305a" />
+      <path d={`M${width} ${deckY} H${right - 30} L${right - 6} ${height} H${width} Z`} fill="#16305a" />
 
       <path d={`M${left - 40} ${deckY} H${mid - gap}`} stroke="rgba(255,255,255,0.75)" strokeWidth="5" strokeLinecap="round" />
       <path d={`M${mid + gap} ${deckY} H${right + 40}`} stroke="rgba(255,255,255,0.75)" strokeWidth="5" strokeLinecap="round" />
