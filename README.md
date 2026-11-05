@@ -43,14 +43,15 @@ Everything a non-developer needs is in `/content`. Each file is plain TypeScript
 | `content/pages/home.ts` | All Home page copy, including the manifesto |
 | `content/pages/about.ts` | About page: story, mission, values, the four teams |
 | `content/pages/partners.ts` | Partners page: why partner, what each partner type gets, process |
-| `content/pages/contact.ts` | Contact page: who to contact for what |
+| `content/pages/contact.ts` | Contact page (Reach out) |
+| `content/bulletin.ts` | The bulletin board: the pinned announcement and the posters in the slider |
 | `content/pages/privacy.ts` | Privacy page |
 | `content/pages/not-found.ts` | 404 page |
 | `content/faqs.ts` | FAQs on About and Partners |
-| `content/forms.ts` | Form labels, placeholders, dropdown options and messages |
+| `content/forms.ts` | Reach out form: labels, placeholders, the two choices and messages |
 | `content/reels.ts` | Featured reels on the Home page |
 | `content/partners.ts` | Partner logo strip (hidden until it has entries) |
-| `content/impact.ts` | Impact counters (hidden until it has entries) |
+| `content/impact.ts` | Numbers panel (hidden until it has entries) |
 | `content/team.ts` | Team members and timeline on About (hidden until they have entries) |
 
 **Highlighting words.** In headlines, wrap words in `[[double brackets]]` to make them red, or `{{double braces}}` to make them yellow. Use red only in big headlines, where it stays readable.
@@ -66,7 +67,9 @@ Everything a non-developer needs is in `/content`. Each file is plain TypeScript
 
 YouTube videos and Shorts show a thumbnail and play on the page (the player only loads when pressed, using YouTube's privacy-enhanced mode). Instagram reels show a styled card that opens the reel on Instagram; no Instagram scripts are loaded.
 
-**The scoreboard.** `content/impact.ts` lists the four cards on the Home page. Each reads "TBA" until you replace its `null` with a real number. Empty the list to hide the scoreboard entirely.
+**Posting an announcement.** Open `content/bulletin.ts`. Change `pinned` for the note on the yellow wall, and add buttons once there are real links. For the poster slider, put images in `/public/board` and fill in a slide with `image`, `alt` and, if it should link somewhere, `href`. Posters are 16:9 (1600 x 900 works well). Remove a slide to remove its dot.
+
+**The numbers panel.** It is hidden while `content/impact.ts` is empty. Add entries to bring it back. Use real, countable numbers only.
 
 **Partners, team, timeline.** These sections stay hidden until their file has entries, so the site never shows placeholder data. Only add real, countable numbers and people who have agreed to be shown. Photos go in `/public/team`, partner logos in `/public/partners`.
 
@@ -137,7 +140,7 @@ Forms are protected by zod validation (in the browser and again on the server), 
 These were decided without explicit answers and are easy to change:
 
 - **Logo:** cut from the supplied image (`public/brand/logo.png`).
-- **Scoreboard labels:** Partner organizations, Reels published, Volunteer days, Students involved, all showing "TBA" (`content/impact.ts`).
+- **Pinned announcement:** names the essay competition with details marked TBA (`content/bulletin.ts`).
 - **Domain:** none yet. URLs fall back to the Vercel production URL.
 - **YouTube:** no channel yet, so YouTube links are hidden.
 - **Tagline stand-in:** "We show up. Then we tell the story." (two alternatives in `content/site.ts`).
@@ -145,7 +148,7 @@ These were decided without explicit answers and are easy to change:
 - **What partners get** (`content/pages/partners.ts`): service organizations get volunteers and a reel with credit; sponsors get named credit in supported reels and on the site; schools get volunteering opportunities for students.
 - **Policy-style statements to confirm** (`content/faqs.ts`, `content/pages/partners.ts`): partners see the reel before it is published; filming always comes with volunteering; on-the-ground work is in Pune.
 - **Team descriptions** for Scripts, Reels, Outreach and Production are written from the team names (`content/pages/about.ts`). Adjust them to match who actually does what.
-- **Team members, partners and timeline** are empty, so those sections are hidden.
+- **Numbers panel, team members, partners and timeline** are empty, so those sections are hidden.
 
 ---
 
@@ -171,4 +174,4 @@ src/lib/            schemas, email, rate limit, metadata, helpers
 
 ## Quality checks (last run)
 
-Lighthouse (mobile) on the production build, comic restyle: Performance 94–98 across Home, About, Partners and Contact, with Accessibility 100, Best Practices 100 and SEO 100 on each. Both forms were tested end to end: validation, field switching by partner type, preselection by link, honeypot, rate limiting, server-side validation with JavaScript off, and delivery (logged in dry-run mode).
+Lighthouse (mobile) on the production build, comic restyle: Performance 94–98 across Home, About, Partners and Contact, with Accessibility 100, Best Practices 100 and SEO 100 on each. The Reach out form was tested end to end: validation, the two choices, preselection by link, honeypot, rate limiting, server-side validation with JavaScript off, and delivery (logged in dry-run mode).

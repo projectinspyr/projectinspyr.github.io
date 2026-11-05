@@ -10,7 +10,7 @@ export const privacyPage = {
     {
       heading: "What we collect",
       body: [
-        "When you send a message or a partner inquiry, we receive what you type into the form: your name, email address, and any details you choose to share, such as your organization or phone number.",
+        "When you send a message, we receive what you type into the form: your name, email address, and any details you choose to share, such as your organization.",
         "We do not ask for anything else, and we do not create accounts.",
       ],
     },

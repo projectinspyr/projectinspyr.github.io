@@ -11,7 +11,7 @@ export const partnersPage = {
     title: "You do the work. We help the city [[see it]].",
     intro:
       "Partner with a student team that shows up in person, works alongside you, and turns what you do into short films people share.",
-    cta: { label: "Start an inquiry", href: "#inquiry" },
+    cta: { label: "Reach out", href: "/contact?as=partner" },
   },
 
   why: {
@@ -40,7 +40,7 @@ export const partnersPage = {
       {
         type: "service",
         title: "Service & volunteer organizations",
-        cta: "Inquire as an organization",
+        cta: "Reach out as an organization",
         items: [
           "Student volunteers on the ground for your drives, events or programs",
           "A short reel (1 to 3 minutes) about your work, published on our channels",
@@ -50,7 +50,7 @@ export const partnersPage = {
       {
         type: "sponsor",
         title: "Sponsors & donors",
-        cta: "Inquire as a sponsor",
+        cta: "Reach out as a sponsor",
         items: [
           "Named credit in the reels and projects you support",
           "Your name or logo on this website as a partner",
@@ -60,7 +60,7 @@ export const partnersPage = {
       {
         type: "school",
         title: "Schools & student groups",
-        cta: "Inquire as a school or group",
+        cta: "Reach out as a school or group",
         items: [
           "Volunteering opportunities for your students alongside service organizations",
           "A close look at how a student-led initiative is run, from outreach to the final cut",
@@ -74,7 +74,7 @@ export const partnersPage = {
     eyebrow: "The process",
     title: "From first message to [[first reel]].",
     steps: [
-      { title: "Inquire", body: "Fill in the form below. It takes about two minutes." },
+      { title: "Reach out", body: "Send us a short message through the Contact page." },
       { title: "Talk", body: "We reply, then set up a short call or visit to understand your work." },
       { title: "Plan", body: "We agree on dates, what help you need and what we will film." },
       { title: "Show up", body: "Our team volunteers with you and captures the work as it happens." },
@@ -85,11 +85,5 @@ export const partnersPage = {
   faq: {
     eyebrow: "Partner questions",
     title: "Before you [[ask]].",
-  },
-
-  form: {
-    eyebrow: "Partner inquiry",
-    title: "Let's build the [[bridge]].",
-    intro: "Pick the option that fits you best. The form adjusts to ask only what matters.",
   },
 };

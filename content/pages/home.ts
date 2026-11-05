@@ -7,15 +7,13 @@ export const home = {
   },
 
   hero: {
-    eyebrow: "Student-led. Pune, India.",
-    // The headline is the tagline from content/site.ts.
     valueProp:
       "Project INSPYR is a team of students in Pune who volunteer alongside NGOs and service organizations, then turn that work into short films people actually stop scrolling for.",
     primaryCta: { label: "Partner with us", href: "/partners" },
     secondaryCta: { label: "Follow our work" }, // links to Instagram
   },
 
-  // The bridge poster under the pinned note.
+  // The bridge poster.
   bridge: {
     title: "The bridge",
     body: "Organizations doing the work on one side. The public on the other. We carry the spark across.",
@@ -23,12 +21,9 @@ export const home = {
     right: "The public",
   },
 
-  // The big name block, next to the logo.
+  // The big name block, next to the logo. The line under it is the tagline from content/site.ts.
   intro: {
     line: "Led by students.",
-    body: "We are a group of students who believe young people can create real change, and we are just getting started.",
-    primary: { label: "How it works", href: "#how" },
-    secondary: { label: "Who we are", href: "/about" },
     stickers: ["BOOM!", "POW!", "Youth power"],
   },
 
@@ -76,7 +71,7 @@ export const home = {
         body: "We cut it into a short reel built to be watched and shared, and publish it on our channels with you credited.",
       },
     ],
-    cta: { label: "Start a partnership", href: "/partners#inquiry" },
+    cta: { label: "Start a partnership", href: "/contact?as=partner" },
   },
 
   manifesto: {
@@ -116,14 +111,14 @@ export const home = {
         title: "Sponsors & donors",
         body: "Back student energy with real reach. Support the work, and get credited in the stories it creates.",
         cta: "Back the work",
-        href: "/partners?type=sponsor#inquiry",
+        href: "/contact?as=partner",
       },
       {
         key: "students",
         title: "Students",
         body: "You do not need a title to start. Volunteer with us, bring your school along, and learn to tell stories that matter.",
         cta: "Get involved",
-        href: "/contact",
+        href: "/contact?as=student",
       },
     ],
   },
@@ -141,7 +136,7 @@ export const home = {
   closing: {
     title: "Got work worth [[seeing]]?",
     body: "Whether you run a service organization, want to back one, or want to get your hands dirty, there is a place for you on this bridge.",
-    primary: { label: "Partner with us", href: "/partners" },
-    secondary: { label: "Say hello", href: "/contact" },
+    primary: { label: "Reach out as a partner", href: "/contact?as=partner" },
+    secondary: { label: "Reach out as a student", href: "/contact?as=student" },
   },
 };

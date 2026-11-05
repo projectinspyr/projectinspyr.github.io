@@ -1,12 +1,13 @@
 /**
- * The scoreboard on the home page.
+ * The numbers panel on the home page. It stays hidden while this list is
+ * empty. Add it back once there is real work to count: use real, countable
+ * numbers only. `value: null` shows "TBA" on a card.
  *
- * Use real, countable numbers only. While `value` is null the card shows "TBA".
- * Example once you have numbers:
+ * Example:
  * { value: 12, label: "Partner organizations" },
  * { value: 40, suffix: "+", label: "Reels published" },
- *
- * To hide the whole scoreboard, empty this list.
+ * { value: 25, label: "Volunteer days" },
+ * { value: 60, label: "Students involved" },
  */
 export type ImpactStat = {
   value: number | null;
@@ -14,9 +15,4 @@ export type ImpactStat = {
   label: string;
 };
 
-export const impact: ImpactStat[] = [
-  { value: null, label: "Partner organizations" },
-  { value: null, label: "Reels published" },
-  { value: null, label: "Volunteer days" },
-  { value: null, label: "Students involved" },
-];
+export const impact: ImpactStat[] = [];

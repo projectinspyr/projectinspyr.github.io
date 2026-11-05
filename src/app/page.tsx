@@ -3,7 +3,7 @@ import { home } from "@content/pages/home";
 import { CtaBand } from "@/components/cta-band";
 import { Audiences } from "@/components/home/audiences";
 import { BridgePanel } from "@/components/home/bridge-panel";
-import { Hero } from "@/components/home/hero";
+import { Bulletin } from "@/components/home/bulletin";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { ImpactStrip } from "@/components/home/impact";
 import { Intro } from "@/components/home/intro";
@@ -24,10 +24,10 @@ export const metadata = pageMetadata({
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <BridgePanel />
+      <Bulletin />
       <Intro />
       <Marquee items={home.marquee} />
+      <BridgePanel />
       <WhatWeDo />
       <HowItWorks />
       <ImpactStrip eyebrow={home.impact.eyebrow} title={home.impact.title} intro={home.impact.intro} stats={impact} />

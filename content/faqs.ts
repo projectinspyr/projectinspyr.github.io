@@ -24,7 +24,7 @@ export const aboutFaqs: Faq[] = [
   {
     question: "How can my organization work with you?",
     answer:
-      "Head to the Partners page and fill in the inquiry form. We will get back to you and set up a conversation.",
+      "Head to the Contact page and reach out as an organization or partner. We will get back to you and set up a conversation.",
   },
 ];
 

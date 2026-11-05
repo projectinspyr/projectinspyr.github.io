@@ -1,14 +1,13 @@
+import Link from "next/link";
 import type { CSSProperties } from "react";
 import { partnerFaqs } from "@content/faqs";
 import { partnersPage } from "@content/pages/partners";
 import { CtaBand } from "@/components/cta-band";
-import { PartnerForm } from "@/components/forms/partner-form";
 import { PageHero } from "@/components/page-hero";
 import { ButtonLink } from "@/components/ui/button";
 import { Briefcase, Check, TeamIcon } from "@/components/ui/doodles";
 import { FaqList } from "@/components/ui/faq";
-import { Rich } from "@/components/ui/rich";
-import { Container, Eyebrow, Section, SectionHeading } from "@/components/ui/section";
+import { Container, Section, SectionHeading } from "@/components/ui/section";
 import { pageMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +22,7 @@ const whyIcons = ["production", "reels", "outreach"];
 const whyCards = ["bg-spark on-yellow", "bg-white on-paper", "bg-tape on-paper"];
 
 export default function PartnersPage() {
-  const { hero, why, perks, process, faq, form } = partnersPage;
+  const { hero, why, perks, process, faq } = partnersPage;
 
   return (
     <>
@@ -80,12 +79,12 @@ export default function PartnersPage() {
                   ))}
                 </ul>
                 <div className="mt-auto pt-7">
-                  <a
-                    href={`?type=${group.type}#inquiry`}
+                  <Link
+                    href="/contact?as=partner"
                     className="inline-block border-[3px] border-ink bg-navy-800 px-4 py-2 font-display text-[1.2rem] leading-none tracking-[0.05em] text-white shadow-comic transition-[translate,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-comic-md"
                   >
                     {group.cta}
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}
@@ -118,24 +117,6 @@ export default function PartnersPage() {
           <FaqList items={partnerFaqs} />
         </Container>
       </Section>
-
-      {/* Inquiry */}
-      <section id="inquiry" aria-labelledby="inquiry-title" className="scroll-mt-20 border-b-4 border-ink bg-navy-800 py-20 sm:py-24">
-        <Container>
-          <div className="mx-auto max-w-4xl">
-            <div data-reveal className="mb-10 text-center">
-              <Eyebrow color="spark" className="mb-4">{form.eyebrow}</Eyebrow>
-              <h2 id="inquiry-title" className="text-[clamp(2.75rem,7vw,4.5rem)] leading-[0.98]">
-                <Rich text={form.title} />
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-lg text-navy-100">{form.intro}</p>
-            </div>
-            <div className="on-paper border-4 border-ink bg-white p-5 text-ink shadow-comic-red-lg sm:p-9">
-              <PartnerForm />
-            </div>
-          </div>
-        </Container>
-      </section>
 
       <CtaBand />
     </>
