@@ -4,7 +4,7 @@ import { m, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { home } from "@content/pages/home";
 import { cn } from "@/lib/utils";
-import { BRIDGE, archPath, hangers, leftBank, rightBank } from "../brand/bridge-geometry";
+import { BRIDGE, archPath, burstPoints, hangers, leftBank, rightBank } from "../brand/bridge-geometry";
 import { ButtonLink } from "../ui/button";
 import { Rich } from "../ui/rich";
 import { Container, Eyebrow, Section } from "../ui/section";
@@ -12,6 +12,7 @@ import { Container, Eyebrow, Section } from "../ui/section";
 const { width, height, deckY, left, right, apexY } = BRIDGE;
 const mid = (left + right) / 2;
 const ease = [0.65, 0, 0.35, 1] as const;
+const INK = "#0d0d0d";
 
 /** The bridge, built up one stage per step: 0 connect, 1 show up, 2 tell the story. */
 function StepBridge({ step, className }: { step: number; className?: string }) {
@@ -20,22 +21,15 @@ function StepBridge({ step, className }: { step: number; className?: string }) {
 
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className={cn("h-auto w-full", className)} aria-hidden>
-      <path d={leftBank} fill="#16305a" />
-      <path d={rightBank} fill="#16305a" />
+      <g stroke={INK} strokeWidth="5">
+        <path d={leftBank} fill="#1e2c4f" />
+        <path d={rightBank} fill="#1e2c4f" />
+      </g>
 
       {/* Ghost of the bridge still to come */}
-      <path d={archPath} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="3" strokeDasharray="4 14" strokeLinecap="round" />
-      <path d={`M${left} ${deckY} H${right}`} stroke="rgba(255,255,255,0.12)" strokeWidth="3" strokeDasharray="4 14" strokeLinecap="round" />
+      <path d={archPath} fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="4" strokeDasharray="6 16" />
+      <path d={`M${left} ${deckY} H${right}`} stroke={INK} strokeOpacity="0.35" strokeWidth="4" strokeDasharray="6 16" />
 
-      <m.path
-        d={`M${left - 70} ${deckY} H${right + 70}`}
-        stroke="rgba(255,255,255,0.8)"
-        strokeWidth="5"
-        strokeLinecap="round"
-        initial={false}
-        animate={{ pathLength: built ? 1 : 0, opacity: built ? 1 : 0 }}
-        transition={{ duration: 0.9, ease }}
-      />
       {hangers.map((h, i) => (
         <m.line
           key={h.x}
@@ -43,22 +37,29 @@ function StepBridge({ step, className }: { step: number; className?: string }) {
           x2={h.x}
           y1={h.top}
           y2={deckY}
-          stroke="rgba(255,255,255,0.26)"
-          strokeWidth="2"
+          stroke={INK}
+          strokeWidth="3"
           initial={false}
           animate={{ opacity: built ? 1 : 0 }}
-          transition={{ delay: built ? 0.35 + i * 0.03 : 0, duration: 0.3 }}
+          transition={{ delay: built ? 0.35 + i * 0.03 : 0, duration: 0.2 }}
         />
       ))}
       <m.path
-        d={archPath}
-        fill="none"
-        stroke="#fbf8f2"
-        strokeWidth="6"
-        strokeLinecap="round"
+        d={`M${left - 40} ${deckY} H${right + 40}`}
+        stroke={INK}
+        strokeWidth="9"
         initial={false}
         animate={{ pathLength: built ? 1 : 0, opacity: built ? 1 : 0 }}
-        transition={{ duration: 1.1, ease }}
+        transition={{ duration: 0.7, ease }}
+      />
+      <m.path
+        d={archPath}
+        fill="none"
+        stroke={INK}
+        strokeWidth="9"
+        initial={false}
+        animate={{ pathLength: built ? 1 : 0, opacity: built ? 1 : 0 }}
+        transition={{ duration: 0.9, ease }}
       />
 
       {/* Volunteers on the deck */}
@@ -66,56 +67,43 @@ function StepBridge({ step, className }: { step: number; className?: string }) {
         <m.circle
           key={t}
           cx={left + (right - left) * t}
-          cy={deckY - 16}
-          r="10"
-          fill="#f23a3a"
+          cy={deckY - 20}
+          r="13"
+          fill="#ff2e4c"
+          stroke={INK}
+          strokeWidth="4"
           initial={false}
           animate={{ opacity: built ? 1 : 0, y: built ? 0 : 12 }}
-          transition={{ delay: built ? 0.8 + i * 0.08 : 0, duration: 0.5 }}
+          transition={{ delay: built ? 0.7 + i * 0.08 : 0, duration: 0.3 }}
         />
       ))}
 
       {/* Your organization, calling out */}
-      <circle cx={left} cy={deckY} r="11" fill="#f23a3a" />
+      <circle cx={left} cy={deckY} r="13" fill="#ff2e4c" stroke={INK} strokeWidth="5" />
       {step === 0 && (
         <m.circle
           cx={left}
           cy={deckY}
           fill="none"
-          stroke="#f23a3a"
-          strokeWidth="3"
-          initial={{ r: 12, opacity: 0.9 }}
-          animate={{ r: 44, opacity: 0 }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
+          stroke="#ff2e4c"
+          strokeWidth="5"
+          initial={{ r: 14, opacity: 1 }}
+          animate={{ r: 48, opacity: 0 }}
+          transition={{ duration: 1.4, repeat: Infinity, ease: "easeOut" }}
         />
       )}
 
       {/* The public */}
-      <m.circle cx={right} cy={deckY} r="11" initial={false} animate={{ fill: told ? "#f5c518" : "#fbf8f2" }} />
+      <m.circle cx={right} cy={deckY} r="13" stroke={INK} strokeWidth="5" initial={false} animate={{ fill: told ? "#ffd100" : "#ffffff" }} />
 
       {/* The spark: rests on the arch once built, lands on the public at the end */}
       <m.g
         initial={false}
-        animate={{ x: told ? right - mid : 0, y: told ? deckY - apexY : 0, opacity: built ? 1 : 0 }}
-        transition={{ duration: 0.9, ease }}
+        animate={{ x: told ? right : mid, y: told ? deckY : apexY, opacity: built ? 1 : 0 }}
+        transition={{ duration: 0.8, ease }}
       >
-        <circle cx={mid} cy={apexY} r="24" fill="#f5c518" opacity="0.22" />
-        <circle cx={mid} cy={apexY} r="9" fill="#ffe27a" />
+        <polygon points={burstPoints(34, 15, 8)} fill="#ffd100" stroke={INK} strokeWidth="4" />
       </m.g>
-      {told &&
-        [0, 1, 2].map((ring) => (
-          <m.circle
-            key={ring}
-            cx={right}
-            cy={deckY}
-            fill="none"
-            stroke="#f5c518"
-            strokeWidth="2"
-            initial={{ r: 14, opacity: 0.7 }}
-            animate={{ r: 96, opacity: 0 }}
-            transition={{ duration: 2.4, delay: ring * 0.8, repeat: Infinity, ease: "easeOut" }}
-          />
-        ))}
     </svg>
   );
 }
@@ -140,27 +128,27 @@ function Step({ index, title, body, active, onActive }: StepProps) {
   }, [centred, index, onActive]);
 
   return (
-    <li
-      ref={ref}
-      className="rounded-[24px] border border-white/10 bg-navy-850 p-6 sm:p-8 lg:flex lg:min-h-[62svh] lg:items-center lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0"
-    >
+    <li ref={ref} className="lg:flex lg:min-h-[62svh] lg:items-center">
       <div
         className={cn(
-          "transition-opacity duration-500 sm:grid sm:grid-cols-[1fr_1.1fr] sm:items-center sm:gap-8 lg:block",
-          active ? "lg:opacity-100" : "lg:opacity-35",
+          "on-paper w-full border-4 border-ink bg-white p-6 text-ink shadow-comic-md transition-[opacity,rotate] duration-300 sm:p-8",
+          index % 2 === 0 ? "-rotate-[0.6deg]" : "rotate-[0.6deg]",
+          active ? "lg:rotate-0 lg:opacity-100" : "lg:opacity-50",
         )}
       >
-        <div>
-          <p className="flex items-baseline gap-3">
-            <span aria-hidden className="font-display text-2xl font-extrabold text-spark lg:text-[5rem] lg:leading-none lg:tracking-[-0.05em]">
-              0{index + 1}
-            </span>
-            <span className="sr-only">Step {index + 1}</span>
-          </p>
-          <h3 className="mt-2 text-[clamp(1.75rem,4.4vw,3.25rem)] font-extrabold leading-none tracking-[-0.03em] lg:mt-4">{title}</h3>
-          <p className="mt-4 max-w-md text-lg leading-relaxed text-navy-200">{body}</p>
+        <div className="sm:grid sm:grid-cols-[1fr_1.1fr] sm:items-center sm:gap-8 lg:block">
+          <div>
+            <p>
+              <span aria-hidden className="inline-block border-[3px] border-ink bg-spark px-3 py-0.5 font-display text-[2rem] leading-none tracking-[0.04em] shadow-comic-sm">
+                0{index + 1}
+              </span>
+              <span className="sr-only">Step {index + 1}</span>
+            </p>
+            <h3 className="mt-4 text-[clamp(2.25rem,4.4vw,3.25rem)] leading-none">{title}</h3>
+            <p className="mt-3 max-w-md text-[1.05rem] leading-relaxed text-navy-500">{body}</p>
+          </div>
+          <StepBridge step={seen ? index : -1} className="mt-6 sm:mt-0 lg:hidden" />
         </div>
-        <StepBridge step={seen ? index : -1} className="mt-6 sm:mt-0 lg:hidden" />
       </div>
     </li>
   );
@@ -171,57 +159,55 @@ export function HowItWorks() {
   const [active, setActive] = useState(0);
 
   return (
-    <Section tone="deep" labelledBy="how-title" className="lg:py-0">
-      <div>
-        <Container>
-          <div className="lg:grid lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-            <div className="lg:sticky lg:top-0 lg:flex lg:h-svh lg:flex-col lg:justify-center lg:self-start lg:pb-8 lg:pt-28">
-              <div data-reveal>
-                <Eyebrow className="mb-5">{howItWorks.eyebrow}</Eyebrow>
-                <h2 id="how-title" className="text-[clamp(2.25rem,7vw,4.5rem)] font-extrabold leading-[0.95] tracking-[-0.035em]">
-                  <Rich text={howItWorks.title} />
-                </h2>
-              </div>
-
-              <div className="hidden lg:block">
-                <StepBridge step={active} className="mt-12" />
-                <ol aria-hidden className="mt-8 grid grid-cols-3 gap-4">
-                  {howItWorks.steps.map((s, i) => (
-                    <li key={s.title}>
-                      <span className="block h-[3px] overflow-hidden rounded-full bg-white/10">
-                        <span
-                          className="block h-full origin-left bg-spark transition-transform duration-700 ease-[var(--ease-spring)]"
-                          style={{ transform: `scaleX(${i <= active ? 1 : 0})` }}
-                        />
-                      </span>
-                      <span className={cn("mt-3 block text-sm font-semibold transition-colors", i === active ? "text-white" : "text-navy-300")}>
-                        0{i + 1} · {s.title}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-                <div className="mt-10">
-                  <ButtonLink href={howItWorks.cta.href} magnetic>
-                    {howItWorks.cta.label}
-                  </ButtonLink>
-                </div>
-              </div>
+    <Section id="how" tone="deep" labelledBy="how-title" className="scroll-mt-[76px] lg:py-0">
+      <Container>
+        <div className="lg:grid lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <div className="lg:sticky lg:top-0 lg:flex lg:h-svh lg:flex-col lg:justify-center lg:self-start lg:pb-6 lg:pt-24">
+            <div data-reveal>
+              <Eyebrow color="spark" className="mb-4">{howItWorks.eyebrow}</Eyebrow>
+              <h2 id="how-title" className="text-[clamp(2.75rem,6vw,4.25rem)] leading-[0.98]">
+                <Rich text={howItWorks.title} />
+              </h2>
             </div>
 
-            <ol className="mt-12 space-y-5 lg:mt-0 lg:space-y-0 lg:py-[19svh]">
-              {howItWorks.steps.map((step, i) => (
-                <Step key={step.title} index={i} title={step.title} body={step.body} active={i === active} onActive={setActive} />
-              ))}
-            </ol>
-
-            <div data-reveal className="mt-10 lg:hidden">
-              <ButtonLink href={howItWorks.cta.href} magnetic>
-                {howItWorks.cta.label}
-              </ButtonLink>
+            <div className="hidden lg:block">
+              <div className="mt-8 border-4 border-ink bg-white p-4 shadow-comic-red">
+                <StepBridge step={active} />
+              </div>
+              <ol aria-hidden className="mt-6 grid grid-cols-3 gap-3">
+                {howItWorks.steps.map((s, i) => (
+                  <li
+                    key={s.title}
+                    className={cn(
+                      "border-[3px] border-ink px-2 py-1.5 text-center font-display text-[1.05rem] leading-tight tracking-[0.03em] transition-colors",
+                      i === active ? "bg-spark text-ink" : i < active ? "bg-tape text-ink" : "bg-navy-800 text-navy-100",
+                    )}
+                  >
+                    {s.title}
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-6">
+                <ButtonLink href={howItWorks.cta.href} magnetic>
+                  {howItWorks.cta.label}
+                </ButtonLink>
+              </div>
             </div>
           </div>
-        </Container>
-      </div>
+
+          <ol className="mt-12 space-y-6 lg:mt-0 lg:space-y-0 lg:pb-[14svh] lg:pt-[19svh]">
+            {howItWorks.steps.map((step, i) => (
+              <Step key={step.title} index={i} title={step.title} body={step.body} active={i === active} onActive={setActive} />
+            ))}
+          </ol>
+
+          <div data-reveal className="mt-10 lg:hidden">
+            <ButtonLink href={howItWorks.cta.href} magnetic>
+              {howItWorks.cta.label}
+            </ButtonLink>
+          </div>
+        </div>
+      </Container>
     </Section>
   );
 }

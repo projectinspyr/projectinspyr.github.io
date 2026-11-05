@@ -2,8 +2,8 @@
  * Site settings. Everything the whole site shares lives here.
  *
  * Text markers used across /content:
- *   [[words]]  highlight in yellow (the spark)
- *   {{words}}  highlight in red (only in big headlines)
+ *   [[words]]  highlight in red (only in big headlines)
+ *   {{words}}  highlight in yellow
  */
 
 export type SocialLink = {

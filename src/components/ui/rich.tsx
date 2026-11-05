@@ -1,55 +1,41 @@
 import { Fragment } from "react";
 import { cn } from "@/lib/utils";
-import { Squiggle } from "./doodles";
 
-export type Tone = "plain" | "spark" | "signal";
+export type Tone = "plain" | "accent" | "alt";
 export type Segment = { text: string; tone: Tone };
+export type Surface = "navy" | "paper" | "yellow";
 
-/** Splits "[[yellow]]" and "{{red}}" markers into styled segments. */
+/** Splits "[[red]]" and "{{yellow}}" markers into styled segments. */
 export function parseRich(text: string): Segment[] {
   return text
     .split(/(\[\[.+?\]\]|\{\{.+?\}\})/g)
     .filter(Boolean)
     .map((part) => {
-      if (part.startsWith("[[")) return { text: part.slice(2, -2), tone: "spark" as const };
-      if (part.startsWith("{{")) return { text: part.slice(2, -2), tone: "signal" as const };
+      if (part.startsWith("[[")) return { text: part.slice(2, -2), tone: "accent" as const };
+      if (part.startsWith("{{")) return { text: part.slice(2, -2), tone: "alt" as const };
       return { text: part, tone: "plain" as const };
     });
 }
 
-export const toneClass: Record<Tone, string> = {
-  plain: "",
-  spark: "text-spark",
-  signal: "text-signal",
+// Red reads only at headline sizes; yellow and paper surfaces get a deeper red to stay legible.
+const toneBySurface: Record<Surface, Record<Exclude<Tone, "plain">, string>> = {
+  navy: { accent: "text-signal", alt: "text-spark" },
+  paper: { accent: "text-signal-deep", alt: "bg-spark px-[0.14em] box-decoration-clone" },
+  yellow: { accent: "text-signal-ink", alt: "text-navy-800" },
 };
 
-type RichProps = {
-  text: string;
-  /** Draw a hand-made squiggle under yellow highlights. */
-  underline?: boolean;
-  /** Use dark-on-light highlight colours (for paper surfaces). */
-  onPaper?: boolean;
-};
-
-export function Rich({ text, underline, onPaper }: RichProps) {
+export function Rich({ text, surface = "navy" }: { text: string; surface?: Surface }) {
   return (
     <>
-      {parseRich(text).map((seg, i) => {
-        if (seg.tone === "plain") return <Fragment key={i}>{seg.text}</Fragment>;
-        const color = onPaper
-          ? seg.tone === "spark"
-            ? "bg-spark/70 px-[0.12em] box-decoration-clone"
-            : "text-signal-ink"
-          : toneClass[seg.tone];
-        return (
-          <span key={i} className={cn("relative whitespace-nowrap", color)}>
+      {parseRich(text).map((seg, i) =>
+        seg.tone === "plain" ? (
+          <Fragment key={i}>{seg.text}</Fragment>
+        ) : (
+          <span key={i} className={cn("whitespace-nowrap", toneBySurface[surface][seg.tone])}>
             {seg.text}
-            {underline && seg.tone === "spark" && !onPaper && (
-              <Squiggle className="pointer-events-none absolute -bottom-[0.08em] left-[2%] h-[0.11em] w-[96%] w-full text-signal" draw />
-            )}
           </span>
-        );
-      })}
+        ),
+      )}
     </>
   );
 }

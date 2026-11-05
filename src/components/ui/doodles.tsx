@@ -12,16 +12,44 @@ const stroke = {
   strokeLinejoin: "round" as const,
 };
 
-export function Squiggle({ draw, ...props }: DoodleProps & { draw?: boolean }) {
+/** A comic impact star, for sparks and POWs. */
+export function Burst(props: DoodleProps) {
   return (
-    <svg viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden {...props}>
-      <path
-        d="M3 10 C 20 2, 30 2, 44 9 S 70 15, 86 8 S 112 1, 128 8 S 156 15, 172 8 S 190 3, 197 7"
-        {...stroke}
-        strokeWidth={4}
-        vectorEffect="non-scaling-stroke"
-        className={draw ? "squiggle-draw" : undefined}
+    <svg viewBox="0 0 48 48" aria-hidden {...props}>
+      <polygon
+        points="24,2 28.6,13.3 39.6,8.4 35.3,19.6 46,24 35.3,28.4 39.6,39.6 28.6,34.7 24,46 19.4,34.7 8.4,39.6 12.7,28.4 2,24 12.7,19.6 8.4,8.4 19.4,13.3"
+        fill="currentColor"
+        stroke="#0d0d0d"
+        strokeWidth="2.5"
+        strokeLinejoin="miter"
       />
+    </svg>
+  );
+}
+
+/** A big faint number behind a card. Drawn as SVG so it reads as artwork, not text. */
+export function Numeral({ value, ...props }: DoodleProps & { value: string }) {
+  return (
+    <svg viewBox="0 0 110 90" aria-hidden {...props}>
+      <text x="108" y="88" textAnchor="end" fill="currentColor" fontFamily="var(--font-bebas), Impact, sans-serif" fontSize="112">
+        {value}
+      </text>
+    </svg>
+  );
+}
+
+export function Heart(props: DoodleProps) {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden {...props}>
+      <path d="M24 41S6 30 6 17c0-6 4.5-10 10-10 3.500 0 6.500 2 8 5 1.500-3 4.500-5 8-5 5.500 0 10 4 10 10 0 13-18 24-18 24Z" {...stroke} strokeWidth={3} />
+    </svg>
+  );
+}
+
+export function PushPin(props: DoodleProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden {...props}>
+      <path d="M12 17v5M8 3h8l-1 7 3 4H6l3-4-1-7Z" {...stroke} strokeWidth={2.2} />
     </svg>
   );
 }
@@ -85,19 +113,6 @@ export function Pin(props: DoodleProps) {
   );
 }
 
-export function Circled(props: DoodleProps) {
-  return (
-    <svg viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden {...props}>
-      <path
-        d="M152 10C120 2 52 4 22 20 2 31 6 58 44 69c38 10 106 9 136-6 22-12 16-40-14-50-16-5-36-7-58-6"
-        {...stroke}
-        strokeWidth={3}
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
-
 export function InstagramGlyph(props: DoodleProps) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden {...props}>
@@ -155,10 +170,9 @@ export function TeamIcon({ team, ...props }: DoodleProps & { team: string }) {
     case "outreach":
       return (
         <svg viewBox="0 0 48 48" aria-hidden {...props}>
-          <circle cx="13" cy="24" r="7" {...stroke} strokeWidth={2.4} />
-          <circle cx="35" cy="24" r="7" {...stroke} strokeWidth={2.4} />
-          <path d="M20 24c4-6 4-6 8 0" {...stroke} strokeWidth={2.4} />
-          <path d="M20 24c4 6 4 6 8 0" {...stroke} strokeWidth={2.4} />
+          <path d="M6 20v9l7 1 21 9V10L13 19l-7 1Z" {...stroke} strokeWidth={2.6} />
+          <path d="m14 30 3 10h6l-3-8" {...stroke} strokeWidth={2.6} />
+          <path d="M40 18c3 4 3 9 0 13" {...stroke} strokeWidth={2.6} />
         </svg>
       );
     default:

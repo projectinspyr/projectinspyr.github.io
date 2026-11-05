@@ -12,23 +12,26 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section aria-labelledby="nf-title" className="relative overflow-hidden bg-navy-800 pb-20 pt-32 sm:pt-40">
-      <Container className="text-center">
-        <Eyebrow className="justify-center">{notFoundPage.eyebrow}</Eyebrow>
-        <h1 id="nf-title" className="mx-auto mt-6 max-w-[14ch] text-[clamp(2.75rem,9vw,7rem)] font-extrabold leading-[0.92] tracking-[-0.045em]">
-          <Rich text={notFoundPage.title} />
-        </h1>
-        <p className="mx-auto mt-6 max-w-lg text-lg text-navy-200">{notFoundPage.body}</p>
-        <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-          <ButtonLink href={notFoundPage.primary.href}>{notFoundPage.primary.label}</ButtonLink>
-          <ButtonLink href={notFoundPage.secondary.href} variant="secondary">
-            {notFoundPage.secondary.label}
-          </ButtonLink>
+    <section aria-labelledby="nf-title" className="on-yellow relative overflow-hidden bg-spark pb-16 pt-28 text-ink sm:pt-32">
+      <div aria-hidden className="halftone-blue absolute inset-0" />
+      <Container className="relative">
+        <div className="on-paper relative mx-auto max-w-4xl -rotate-1 border-4 border-ink bg-paper px-5 py-10 text-center shadow-comic-lg sm:px-10">
+          <span aria-hidden className="tape -top-3 left-8 -rotate-6" />
+          <span aria-hidden className="tape -top-3 right-8 rotate-6" />
+          <Eyebrow color="spark">{notFoundPage.eyebrow}</Eyebrow>
+          <h1 id="nf-title" className="mx-auto mt-5 max-w-[16ch] text-[clamp(3.25rem,9vw,6.5rem)] leading-[0.92]">
+            <Rich text={notFoundPage.title} surface="paper" />
+          </h1>
+          <p className="mx-auto mt-4 max-w-lg text-lg text-navy-500">{notFoundPage.body}</p>
+          <BrokenBridge className="mt-6 h-auto w-full" />
+          <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <ButtonLink href={notFoundPage.primary.href}>{notFoundPage.primary.label}</ButtonLink>
+            <ButtonLink href={notFoundPage.secondary.href} variant="navy">
+              {notFoundPage.secondary.label}
+            </ButtonLink>
+          </div>
         </div>
       </Container>
-      <div className="mt-16 overflow-hidden">
-        <BrokenBridge className="ml-[-28%] h-auto w-[156%] max-w-none sm:mx-auto sm:w-full sm:max-w-[1400px]" />
-      </div>
     </section>
   );
 }

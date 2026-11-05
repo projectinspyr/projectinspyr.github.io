@@ -1,8 +1,9 @@
-import { BRIDGE, archY } from "./bridge-geometry";
+import { BRIDGE, archY, burstPoints, leftBank, rightBank } from "./bridge-geometry";
 
 const { width, height, deckY, left, right } = BRIDGE;
 const mid = (left + right) / 2;
 const gap = 70;
+const INK = "#0d0d0d";
 
 function halfArch(from: number, to: number) {
   const pts: string[] = [];
@@ -18,31 +19,23 @@ function halfArch(from: number, to: number) {
 export function BrokenBridge({ className }: { className?: string }) {
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className={className} aria-hidden>
-      <path d={`M0 ${deckY} H${left + 30} L${left + 6} ${height} H0 Z`} fill="#16305a" />
-      <path d={`M${width} ${deckY} H${right - 30} L${right - 6} ${height} H${width} Z`} fill="#16305a" />
+      <g stroke={INK} strokeWidth="5">
+        <path d={leftBank} fill="#1e2c4f" />
+        <path d={rightBank} fill="#1e2c4f" />
+      </g>
 
-      <path d={`M${left - 40} ${deckY} H${mid - gap}`} stroke="rgba(255,255,255,0.75)" strokeWidth="5" strokeLinecap="round" />
-      <path d={`M${mid + gap} ${deckY} H${right + 40}`} stroke="rgba(255,255,255,0.75)" strokeWidth="5" strokeLinecap="round" />
+      <path d={`M${left - 40} ${deckY} H${mid - gap}`} stroke={INK} strokeWidth="9" />
+      <path d={`M${mid + gap} ${deckY} H${right + 40}`} stroke={INK} strokeWidth="9" />
 
-      <path d={halfArch(left, mid - gap)} fill="none" stroke="#fbf8f2" strokeWidth="6" strokeLinecap="round" />
-      <path d={halfArch(mid + gap, right)} fill="none" stroke="#fbf8f2" strokeWidth="6" strokeLinecap="round" />
-      <path
-        d={halfArch(mid - gap, mid + gap)}
-        fill="none"
-        stroke="rgba(255,255,255,0.35)"
-        strokeWidth="3"
-        strokeDasharray="6 12"
-        strokeLinecap="round"
-      />
+      <path d={halfArch(left, mid - gap)} fill="none" stroke={INK} strokeWidth="9" />
+      <path d={halfArch(mid + gap, right)} fill="none" stroke={INK} strokeWidth="9" />
+      <path d={halfArch(mid - gap, mid + gap)} fill="none" stroke={INK} strokeOpacity="0.45" strokeWidth="4" strokeDasharray="8 14" />
 
-      <circle cx={left} cy={deckY} r="9" fill="#f23a3a" />
-      <circle cx={right} cy={deckY} r="9" fill="#fbf8f2" />
+      <circle cx={left} cy={deckY} r="13" fill="#ff2e4c" stroke={INK} strokeWidth="5" />
+      <circle cx={right} cy={deckY} r="13" fill="#fff" stroke={INK} strokeWidth="5" />
 
       <g transform={`translate(${mid - gap} ${archY(mid - gap)})`}>
-        <circle r="22" fill="#f5c518" opacity="0.22">
-          <animate attributeName="r" values="18;26;18" dur="2.4s" repeatCount="indefinite" />
-        </circle>
-        <circle r="8" fill="#ffe27a" />
+        <polygon points={burstPoints(32, 14, 8)} fill="#ffd100" stroke={INK} strokeWidth="4" />
       </g>
     </svg>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, m } from "motion/react";
 import { useState } from "react";
 import { Check } from "./ui/doodles";
 
@@ -22,21 +21,10 @@ export function CopyEmail({ email, label, copiedLabel }: { email: string; label:
     <button
       type="button"
       onClick={copy}
-      className="relative inline-flex h-10 items-center gap-2 overflow-hidden rounded-full border border-white/20 px-4 text-sm font-semibold transition-colors hover:border-spark hover:text-spark"
+      className="inline-flex h-11 items-center gap-2 border-[3px] border-ink bg-navy-800 px-4 font-display text-[1.15rem] leading-none tracking-[0.05em] text-white shadow-comic-sm transition-[translate,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-comic active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <m.span
-          key={copied ? "done" : "idle"}
-          initial={{ y: 12, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -12, opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="inline-flex items-center gap-2"
-        >
-          {copied && <Check className="size-4 text-spark" />}
-          {copied ? copiedLabel : label}
-        </m.span>
-      </AnimatePresence>
+      {copied && <Check className="size-4 text-spark" />}
+      {copied ? copiedLabel : label}
       <span className="sr-only" role="status">
         {copied ? copiedLabel : ""}
       </span>

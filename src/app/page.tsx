@@ -1,11 +1,12 @@
 import { impact } from "@content/impact";
 import { home } from "@content/pages/home";
-import { BridgeDivider } from "@/components/brand/bridge-divider";
 import { CtaBand } from "@/components/cta-band";
 import { Audiences } from "@/components/home/audiences";
+import { BridgePanel } from "@/components/home/bridge-panel";
 import { Hero } from "@/components/home/hero";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { ImpactStrip } from "@/components/home/impact";
+import { Intro } from "@/components/home/intro";
 import { Manifesto } from "@/components/home/manifesto";
 import { Marquee } from "@/components/home/marquee";
 import { PartnerStrip } from "@/components/home/partner-strip";
@@ -24,17 +25,17 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <BridgePanel />
+      <Intro />
       <Marquee items={home.marquee} />
       <WhatWeDo />
-      <ImpactStrip title={home.impact.title} eyebrow={home.impact.eyebrow} stats={impact} />
       <HowItWorks />
+      <ImpactStrip eyebrow={home.impact.eyebrow} title={home.impact.title} intro={home.impact.intro} stats={impact} />
       <Manifesto />
       <Reels />
       <PartnerStrip />
       <Audiences />
-      <div className="bg-navy-800 pt-10 text-white/15">
-        <BridgeDivider />
-      </div>
+      <Marquee items={home.marqueeAction} tone="red" />
       <CtaBand />
     </>
   );

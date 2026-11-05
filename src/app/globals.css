@@ -1,44 +1,53 @@
 @import "tailwindcss";
 
 /* ───────────── Design tokens ─────────────
-   Navy is the ground. Red is action. Yellow is the spark.
+   Comic-book style: flat colour, thick ink outlines, hard offset shadows,
+   square corners, slightly tilted cards, halftone dots, tape and stickers.
+
    Contrast notes (WCAG):
-   - white on navy-800: 15.4:1        - navy-200 on navy-800: 9.8:1
-   - spark on navy-800: 9.9:1         - signal on navy-800: 4.2:1 (large text only)
-   - white on signal-deep: 4.6:1      - signal-ink on paper: 6.1:1
+   - white on navy-800: 13.8:1          - navy-100 on navy-800: 11:1
+   - spark on navy-800: 9.4:1           - signal on navy-800: 3.8:1 (large text only)
+   - white on signal-deep: 4.6:1        - ink on signal: 5.3:1
+   - signal-ink on spark: 5:1           - signal-deep on paper: 4.4:1 (large text only)
 */
 @theme {
-  --color-navy-950: #040b17;
-  --color-navy-900: #071328;
-  --color-navy-850: #0b1b36;
-  --color-navy-800: #0e2241;
-  --color-navy-700: #16305a;
-  --color-navy-600: #1e3f72;
-  --color-navy-500: #2b5391;
-  --color-navy-300: #8ea6cb;
-  --color-navy-200: #bccbe2;
-  --color-navy-100: #e3eaf5;
+  --color-navy-950: #101a33;
+  --color-navy-900: #16223d;
+  --color-navy-850: #1a2746;
+  --color-navy-800: #1e2c4f;
+  --color-navy-700: #2a3b66;
+  --color-navy-600: #384c7e;
+  --color-navy-500: #4a5568;
+  --color-navy-300: #aab6d0;
+  --color-navy-200: #c9d2e6;
+  --color-navy-100: #e6ebf5;
 
-  --color-signal: #f23a3a;
-  --color-signal-deep: #dc2c2c;
-  --color-signal-ink: #b01e1e;
+  --color-ink: #0d0d0d;
 
-  --color-spark: #f5c518;
-  --color-spark-soft: #ffe27a;
+  --color-signal: #ff2e4c;
+  --color-signal-deep: #e51f3d;
+  --color-signal-ink: #a80e27;
 
-  --color-paper: #f6f1e7;
-  --color-paper-deep: #e9e0cd;
-  --color-cream: #fbf8f2;
+  --color-spark: #ffd100;
+
+  --color-tape: #ead9b0;
+  --color-paper: #fffdf5;
+
+  --shadow-comic-sm: 3px 3px 0 0 #0d0d0d;
+  --shadow-comic: 4px 4px 0 0 #0d0d0d;
+  --shadow-comic-md: 6px 6px 0 0 #0d0d0d;
+  --shadow-comic-lg: 10px 10px 0 0 #0d0d0d;
+  --shadow-comic-red: 8px 8px 0 0 #ff2e4c;
+  --shadow-comic-red-lg: 10px 10px 0 0 #ff2e4c;
 
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-swing: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @theme inline {
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
-  --font-hand: var(--font-caveat), "Comic Sans MS", cursive;
-  --font-logo: var(--font-fredoka), ui-rounded, sans-serif;
+  --font-display: var(--font-bebas), Impact, "Arial Narrow", sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-marker: var(--font-permanent-marker), "Comic Sans MS", cursive;
 }
 
 /* ───────────── Base ───────────── */
@@ -56,6 +65,7 @@
     background: var(--color-navy-800);
     color: #fff;
     font-family: var(--font-sans);
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
@@ -66,6 +76,8 @@
   h3,
   h4 {
     font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.02em;
     text-wrap: balance;
   }
 
@@ -75,17 +87,17 @@
 
   ::selection {
     background: var(--color-spark);
-    color: var(--color-navy-900);
+    color: var(--color-ink);
   }
 
   :focus-visible {
     outline: 3px solid var(--color-spark);
     outline-offset: 3px;
-    border-radius: 6px;
   }
 
-  .on-paper :focus-visible {
-    outline-color: var(--color-navy-800);
+  .on-paper :focus-visible,
+  .on-yellow :focus-visible {
+    outline-color: var(--color-ink);
   }
 
   [hidden] {
@@ -94,75 +106,75 @@
 }
 
 /* ───────────── Texture ───────────── */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  pointer-events: none;
-  opacity: 0.06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+.halftone-light {
+  background-image: radial-gradient(rgb(255 255 255 / 0.2) 1.6px, transparent 1.7px);
+  background-size: 18px 18px;
 }
 
-.dot-grid {
-  background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1px);
+.halftone-blue {
+  background-image: radial-gradient(rgb(30 44 79 / 0.28) 2.2px, transparent 2.3px);
   background-size: 22px 22px;
 }
 
 .tape {
   position: absolute;
-  height: 26px;
-  width: 92px;
-  background: rgb(245 197 24 / 0.78);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
-  clip-path: polygon(3% 0, 97% 4%, 100% 50%, 96% 100%, 2% 96%, 0 48%);
+  height: 28px;
+  width: 96px;
+  background: rgb(234 217 176 / 0.9);
+  border-left: 1px solid rgb(13 13 13 / 0.12);
+  border-right: 1px solid rgb(13 13 13 / 0.12);
+}
+
+/* Floating stickers: BOOM! POW! and friends. */
+.sticker {
+  animation: sticker-float 5s ease-in-out infinite;
+}
+
+@keyframes sticker-float {
+  50% {
+    transform: translateY(-7px) rotate(var(--sticker-tilt, 0deg));
+  }
 }
 
 /* ───────────── Reveal on scroll ─────────────
-   Elements with data-reveal fade up when they enter the viewport.
+   Elements with data-reveal pop up when they enter the viewport.
    The `js` class is set before paint, so no-JS visitors see everything. */
 .js [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
+  translate: 0 26px;
   transition:
-    opacity 0.8s var(--ease-spring),
-    transform 0.9s var(--ease-spring);
+    opacity 0.55s var(--ease-spring),
+    translate 0.7s var(--ease-spring);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
 .js [data-reveal].is-in {
   opacity: 1;
-  transform: none;
+  translate: 0 0;
 }
 
-/* ───────────── Hero entrance (CSS only, no JS needed) ───────────── */
-.rise-mask {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.34em;
-  margin-bottom: -0.34em;
-}
-
-.rise-mask > span {
-  display: inline-block;
-  animation: rise 1.05s var(--ease-spring) both;
-  animation-delay: var(--d, 0ms);
-}
-
+/* ───────────── Entrance (CSS only, no JS needed) ───────────── */
 .fade-up {
-  animation: fade-up 0.9s var(--ease-spring) both;
+  animation: fade-up 0.7s var(--ease-spring) both;
   animation-delay: var(--d, 0ms);
 }
 
-@keyframes rise {
-  from {
-    transform: translate3d(0, 104%, 0);
-  }
+.slap-in {
+  animation: slap-in 0.55s var(--ease-spring) both;
+  animation-delay: var(--d, 0ms);
 }
 
 @keyframes fade-up {
   from {
     opacity: 0.01;
-    transform: translate3d(0, 18px, 0);
+    translate: 0 16px;
+  }
+}
+
+@keyframes slap-in {
+  from {
+    opacity: 0.01;
+    scale: 1.06;
   }
 }
 
@@ -170,7 +182,7 @@
 .bridge-draw {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: draw 1.5s var(--ease-swing) forwards;
+  animation: draw 1.4s var(--ease-swing) forwards;
   animation-delay: var(--d, 0ms);
 }
 
@@ -178,13 +190,13 @@
   transform-box: fill-box;
   transform-origin: 50% 0;
   transform: scaleY(0);
-  animation: hang 0.8s var(--ease-spring) forwards;
+  animation: hang 0.6s var(--ease-spring) forwards;
   animation-delay: var(--d, 0ms);
 }
 
 .bridge-pop {
   opacity: 0;
-  animation: pop-in 0.7s var(--ease-spring) forwards;
+  animation: pop-in 0.5s var(--ease-spring) forwards;
   animation-delay: var(--d, 0ms);
 }
 
@@ -212,7 +224,7 @@
 
 /* ───────────── Marquee ───────────── */
 .marquee-track {
-  animation: marquee 38s linear infinite;
+  animation: marquee 34s linear infinite;
 }
 
 .marquee:hover .marquee-track {
@@ -222,20 +234,6 @@
 @keyframes marquee {
   to {
     transform: translate3d(-50%, 0, 0);
-  }
-}
-
-/* ───────────── Squiggle underline ───────────── */
-/* Wiped in left to right with a clip, so it always draws the full width. */
-.squiggle-draw {
-  clip-path: inset(0 100% 0 0);
-  animation: squiggle 0.9s var(--ease-swing) forwards;
-  animation-delay: var(--d, 900ms);
-}
-
-@keyframes squiggle {
-  to {
-    clip-path: inset(0 0 0 0);
   }
 }
 
@@ -263,7 +261,7 @@ details > summary::-webkit-details-marker {
 
   .js [data-reveal] {
     opacity: 1;
-    transform: none;
+    translate: 0 0;
   }
 
   .bridge-anim {
@@ -274,7 +272,8 @@ details > summary::-webkit-details-marker {
     display: inline;
   }
 
-  .marquee-track {
+  .marquee-track,
+  .sticker {
     animation: none;
   }
 }

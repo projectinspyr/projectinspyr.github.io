@@ -53,7 +53,7 @@ Everything a non-developer needs is in `/content`. Each file is plain TypeScript
 | `content/impact.ts` | Impact counters (hidden until it has entries) |
 | `content/team.ts` | Team members and timeline on About (hidden until they have entries) |
 
-**Highlighting words.** In headlines, wrap words in `[[double brackets]]` to make them yellow, or `{{double braces}}` to make them red (use red only in big headlines, where it stays readable).
+**Highlighting words.** In headlines, wrap words in `[[double brackets]]` to make them red, or `{{double braces}}` to make them yellow. Use red only in big headlines, where it stays readable.
 
 **Changing the tagline.** `content/site.ts` lists three options in `taglines`. Change `taglines[0]` to `taglines[1]` or `taglines[2]` on the `tagline:` line. That one change updates the hero and the default page title.
 
@@ -66,11 +66,13 @@ Everything a non-developer needs is in `/content`. Each file is plain TypeScript
 
 YouTube videos and Shorts show a thumbnail and play on the page (the player only loads when pressed, using YouTube's privacy-enhanced mode). Instagram reels show a styled card that opens the reel on Instagram; no Instagram scripts are loaded.
 
-**Impact numbers, partners, team, timeline.** These sections stay hidden until their file has entries, so the site never shows placeholder data. Only add real, countable numbers and people who have agreed to be shown. Photos go in `/public/team`, partner logos in `/public/partners`.
+**The scoreboard.** `content/impact.ts` lists the four cards on the Home page. Each reads "TBA" until you replace its `null` with a real number. Empty the list to hide the scoreboard entirely.
+
+**Partners, team, timeline.** These sections stay hidden until their file has entries, so the site never shows placeholder data. Only add real, countable numbers and people who have agreed to be shown. Photos go in `/public/team`, partner logos in `/public/partners`.
 
 **Adding the YouTube channel.** In `content/site.ts`, replace `youtube: null` with the object shown in the comment above it. Links appear in the footer, contact page and structured data.
 
-**Swapping in the original logo.** The lockup is recreated as SVG in `src/components/brand/wordmark.tsx`. To use an exported file instead, put it in `/public/brand/` and replace the `<svg>` in that component with `<Image src="/brand/logo.svg" … />`.
+**Swapping in the original logo.** The logo on the cards is `/public/brand/logo.png`, cut from the supplied image. For a sharper result, replace that file with the original export under the same name. The header uses the name set in type, in `src/components/brand/wordmark.tsx`.
 
 ---
 
@@ -134,7 +136,8 @@ Forms are protected by zod validation (in the browser and again on the server), 
 
 These were decided without explicit answers and are easy to change:
 
-- **Logo:** recreated as SVG from the brand artwork (arched yellow PROJECT, red INSPYR, white "led by students").
+- **Logo:** cut from the supplied image (`public/brand/logo.png`).
+- **Scoreboard labels:** Partner organizations, Reels published, Volunteer days, Students involved, all showing "TBA" (`content/impact.ts`).
 - **Domain:** none yet. URLs fall back to the Vercel production URL.
 - **YouTube:** no channel yet, so YouTube links are hidden.
 - **Tagline stand-in:** "We show up. Then we tell the story." (two alternatives in `content/site.ts`).
@@ -142,17 +145,22 @@ These were decided without explicit answers and are easy to change:
 - **What partners get** (`content/pages/partners.ts`): service organizations get volunteers and a reel with credit; sponsors get named credit in supported reels and on the site; schools get volunteering opportunities for students.
 - **Policy-style statements to confirm** (`content/faqs.ts`, `content/pages/partners.ts`): partners see the reel before it is published; filming always comes with volunteering; on-the-ground work is in Pune.
 - **Team descriptions** for Scripts, Reels, Outreach and Production are written from the team names (`content/pages/about.ts`). Adjust them to match who actually does what.
-- **Team members, impact numbers, partners and timeline** are empty, so those sections are hidden.
+- **Team members, partners and timeline** are empty, so those sections are hidden.
 
 ---
 
 ## How it is built
 
-- **Signature: the bridge.** One arch from the organizations' bank to the public's bank, crossed by a yellow spark. It appears in the hero (drawn in CSS, looped with SVG animation, no JavaScript), the How it works story, the section dividers, the page-transition bar, the 404 (an unfinished bridge), the favicon and every share image.
-- **Design tokens** live at the top of `src/app/globals.css`: the navy scale, signal red (actions), spark yellow (emphasis), paper tones. Contrast notes are next to them.
-- **Type:** Bricolage Grotesque for headlines, Instrument Sans for body, Fredoka for the logo, Caveat for small hand-written notes. All self-hosted through `next/font`.
-- **Motion** respects `prefers-reduced-motion` everywhere: entrances settle instantly, the bridge renders still, smooth scrolling and the custom cursor turn off.
+- **Style: comic book.** Flat colour, thick ink outlines, hard offset shadows, square corners, slightly tilted cards, halftone dots, tape, pins and stickers.
+- **Signature: the bridge.** One arch from the organizations' bank to the public's bank, crossed by a spark, inked like a comic panel. It appears in the poster on the Home page (drawn in CSS, looped with SVG animation, no JavaScript), the How it works story, the 404 (an unfinished bridge) and the favicon.
+- **Design tokens** live at the top of `src/app/globals.css`: the navy scale, ink, signal red (actions), spark yellow (emphasis), tape and paper tones, and the hard shadows. Contrast notes are next to them. To make the navy darker or lighter, change `--color-navy-800`.
+- **Type:** Bebas Neue for headlines, Plus Jakarta Sans for body, Permanent Marker for hand-lettered tags. All self-hosted through `next/font`.
+- **Motion** respects `prefers-reduced-motion` everywhere: entrances settle instantly, the bridge renders still, stickers stop floating, smooth scrolling and the custom cursor turn off.
 - **SEO:** per-page metadata and canonical URLs, generated Open Graph and Twitter images per page, `sitemap.xml`, `robots.txt`, web manifest and Organization JSON-LD.
+
+### Previous styling (backup)
+
+The navy "bridge" styling used before the comic restyle is saved on the `backup/navy-bridge-style` branch and the `style-navy-bridge-v1` tag. Vercel keeps a preview link for that branch under Project → Deployments.
 
 ```
 content/            all copy and data
@@ -163,4 +171,4 @@ src/lib/            schemas, email, rate limit, metadata, helpers
 
 ## Quality checks (last run)
 
-Lighthouse (mobile) on the production build: Performance 99–100, Accessibility 100, Best Practices 100, SEO 100 across Home, About, Partners and Contact. Both forms were tested end to end: validation, field switching by partner type, preselection by link, honeypot, rate limiting, server-side validation with JavaScript off, and delivery (logged in dry-run mode).
+Lighthouse (mobile) on the production build, comic restyle: Performance 94–98 across Home, About, Partners and Contact, with Accessibility 100, Best Practices 100 and SEO 100 on each. Both forms were tested end to end: validation, field switching by partner type, preselection by link, honeypot, rate limiting, server-side validation with JavaScript off, and delivery (logged in dry-run mode).

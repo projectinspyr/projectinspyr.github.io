@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Reel } from "@content/reels";
 import { parseReelUrl } from "@/lib/youtube";
-import { ArrowUpRight, InstagramGlyph, Spark } from "../ui/doodles";
+import { ArrowUpRight, Burst, InstagramGlyph } from "../ui/doodles";
 
 /**
  * YouTube reels show a lightweight thumbnail and only load the player when
@@ -16,7 +16,7 @@ export function ReelCard({ reel }: { reel: Reel }) {
 
   if (parsed.platform === "youtube") {
     return (
-      <figure className="group relative aspect-[9/16] overflow-hidden rounded-[24px] border border-white/10 bg-navy-900">
+      <figure className="group relative aspect-[9/16] overflow-hidden border-4 border-ink bg-navy-900 shadow-comic-md">
         {playing ? (
           <iframe
             className="absolute inset-0 size-full"
@@ -26,26 +26,21 @@ export function ReelCard({ reel }: { reel: Reel }) {
             allowFullScreen
           />
         ) : (
-          <button
-            type="button"
-            onClick={() => setPlaying(true)}
-            className="absolute inset-0 size-full text-left"
-          >
+          <button type="button" onClick={() => setPlaying(true)} className="absolute inset-0 size-full text-left">
             <Image
               src={`https://i.ytimg.com/vi/${parsed.id}/hqdefault.jpg`}
               alt=""
               fill
               sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 80vw"
-              className="object-cover transition-transform duration-700 ease-[var(--ease-spring)] group-hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/20 to-transparent" />
-            <span aria-hidden className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-signal-deep shadow-[0_10px_40px_-8px_rgb(242_58_58/0.8)] transition-transform duration-500 group-hover:scale-110">
+            <span aria-hidden className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center border-[3px] border-ink bg-signal-deep shadow-comic transition-transform duration-200 group-hover:scale-110">
               <svg viewBox="0 0 24 24" className="ml-1 size-7 fill-white"><path d="M7 4.5v15l13-7.5Z" /></svg>
             </span>
-            <span className="absolute inset-x-0 bottom-0 p-5">
+            <span className="absolute inset-x-3 bottom-3 border-[3px] border-ink bg-white p-3 text-ink shadow-comic-sm">
               <span className="sr-only">Play video: </span>
-              <span className="block font-display text-xl font-bold leading-tight">{reel.title}</span>
-              {reel.partner && <span className="mt-1 block text-sm text-navy-200">with {reel.partner}</span>}
+              <span className="block font-display text-[1.35rem] leading-tight tracking-[0.03em]">{reel.title}</span>
+              {reel.partner && <span className="mt-1 block text-sm text-navy-500">with {reel.partner}</span>}
             </span>
           </button>
         )}
@@ -58,18 +53,18 @@ export function ReelCard({ reel }: { reel: Reel }) {
       href={parsed.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex aspect-[9/16] flex-col justify-between overflow-hidden rounded-[24px] border border-white/10 bg-navy-700 p-6 transition-colors hover:border-spark/60"
+      className="group relative flex aspect-[9/16] flex-col justify-between overflow-hidden border-4 border-ink bg-spark p-5 text-ink shadow-comic-md transition-[translate,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-comic-lg"
     >
-      <span aria-hidden className="dot-grid absolute inset-0 opacity-60" />
+      <span aria-hidden className="halftone-blue absolute inset-0" />
       <span className="relative flex items-center justify-between">
         <InstagramGlyph className="size-7" />
-        <ArrowUpRight className="size-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+        <ArrowUpRight className="size-6 transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1" />
       </span>
-      <Spark className="relative mx-auto size-16 text-spark transition-transform duration-700 group-hover:rotate-90" />
-      <span className="relative">
-        <span className="block font-display text-xl font-bold leading-tight">{reel.title}</span>
-        {reel.partner && <span className="mt-1 block text-sm text-navy-200">with {reel.partner}</span>}
-        <span className="mt-4 inline-flex text-sm font-semibold text-spark">
+      <Burst className="relative mx-auto size-20 text-signal transition-transform duration-500 group-hover:rotate-45" />
+      <span className="relative border-[3px] border-ink bg-white p-3 shadow-comic-sm">
+        <span className="block font-display text-[1.35rem] leading-tight tracking-[0.03em]">{reel.title}</span>
+        {reel.partner && <span className="mt-1 block text-sm text-navy-500">with {reel.partner}</span>}
+        <span className="mt-2 inline-flex font-marker text-sm text-signal-ink">
           Watch on Instagram<span className="sr-only"> (opens in a new tab)</span>
         </span>
       </span>

@@ -1,22 +1,28 @@
+import type { CSSProperties } from "react";
 import type { Faq } from "@content/faqs";
 
 export function FaqList({ items }: { items: Faq[] }) {
   return (
-    <div className="divide-y divide-white/10 border-y border-white/10">
+    <div className="space-y-4">
       {items.map((item, i) => (
-        <details key={item.question} className="group" data-reveal style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}>
-          <summary className="flex cursor-pointer items-start justify-between gap-6 py-6 text-left text-lg font-semibold leading-snug transition-colors hover:text-spark sm:text-xl">
+        <details
+          key={item.question}
+          data-reveal
+          style={{ "--reveal-delay": `${i * 50}ms` } as CSSProperties}
+          className="on-paper group border-[3px] border-ink bg-white text-ink shadow-comic"
+        >
+          <summary className="flex cursor-pointer items-center justify-between gap-5 px-5 py-4 text-left font-display text-[1.45rem] leading-tight tracking-[0.03em] transition-colors hover:bg-spark sm:px-6">
             <span>{item.question}</span>
             <span
               aria-hidden
-              className="relative mt-1 grid size-7 shrink-0 place-items-center rounded-full border border-white/20 transition-[transform,border-color,background-color] duration-300 group-open:rotate-45 group-open:border-spark group-open:bg-spark group-open:text-navy-900"
+              className="grid size-8 shrink-0 place-items-center border-[3px] border-ink bg-spark transition-transform duration-200 group-open:rotate-45 group-open:bg-signal group-open:text-ink"
             >
               <svg viewBox="0 0 12 12" className="size-3">
-                <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="2.4" />
               </svg>
             </span>
           </summary>
-          <p className="max-w-3xl pb-7 pr-12 text-base leading-relaxed text-navy-200 sm:text-lg">{item.answer}</p>
+          <p className="border-t-[3px] border-ink px-5 py-4 text-base leading-relaxed sm:px-6">{item.answer}</p>
         </details>
       ))}
     </div>

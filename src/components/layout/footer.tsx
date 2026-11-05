@@ -1,35 +1,59 @@
 import Link from "next/link";
 import { site } from "@content/site";
 import { socialLinks } from "@content/social";
-import { BridgeDivider } from "../brand/bridge-divider";
-import { Wordmark } from "../brand/wordmark";
+import { LogoCard } from "../brand/wordmark";
 import { Container } from "../ui/section";
-import { InstagramGlyph, MailGlyph, YouTubeGlyph } from "../ui/doodles";
+import { InstagramGlyph, YouTubeGlyph } from "../ui/doodles";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-navy-950 pt-6 text-white">
-      <BridgeDivider className="text-white/15" />
-      <Container className="pt-14">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.7fr_1fr]">
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="mb-8 inline-block">
-              <Wordmark id="logo-footer" className="w-[170px]" />
-              <span className="sr-only">Project INSPYR, led by students: home</span>
+    <footer className="relative border-t-4 border-ink bg-navy-800 pb-8 pt-16 text-white">
+      <div aria-hidden className="halftone-light pointer-events-none absolute inset-0" />
+      <Container className="relative">
+        <div className="grid gap-12 md:grid-cols-[1.1fr_1.3fr] lg:grid-cols-[1fr_1.1fr_0.7fr_auto]">
+          <div>
+            <Link href="/" className="inline-block w-[210px] -rotate-2 transition-transform duration-200 hover:rotate-0">
+              <LogoCard />
+              <span className="sr-only">Project INSPYR home</span>
             </Link>
-            <p className="max-w-sm font-display text-3xl font-bold leading-tight tracking-[-0.02em]">
-              Bridging the people doing good work and the people who should{" "}
-              <span className="text-spark">see it</span>.
+            <p className="mt-7 max-w-xs leading-relaxed text-navy-100">{site.instagramBio}</p>
+          </div>
+
+          <div>
+            <h2 className="mb-4 text-[1.7rem] leading-none text-spark">Talk to us</h2>
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-block max-w-full break-all border-[3px] border-ink bg-spark px-4 py-2.5 font-display text-[1.35rem] leading-tight tracking-[0.04em] text-ink shadow-comic transition-[translate,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-comic-md"
+            >
+              {site.email}
+            </a>
+            <ul className="mt-4 flex flex-wrap gap-3">
+              {socialLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 border-[3px] border-ink bg-signal-deep px-3.5 py-2 font-display text-[1.15rem] leading-none tracking-[0.05em] text-white shadow-comic-sm transition-[translate,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-comic"
+                  >
+                    {link.label === "YouTube" ? <YouTubeGlyph className="size-5" /> : <InstagramGlyph className="size-5" />}
+                    {link.label}
+                    <span className="sr-only"> {link.handle} (opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-navy-100">
+              Based in {site.location.city}, {site.location.country}
             </p>
-            <p className="mt-5 max-w-sm text-navy-200">{site.instagramBio}</p>
           </div>
 
           <nav aria-label="Footer">
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-navy-300">Explore</h2>
-            <ul className="space-y-3">
+            <h2 className="mb-4 text-[1.7rem] leading-none text-spark">Explore</h2>
+            <ul className="space-y-2">
               {[{ label: "Home", href: "/" }, ...site.nav, { label: "Privacy", href: "/privacy" }].map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-navy-100 transition-colors hover:text-spark">
+                  <Link href={item.href} className="font-display text-[1.3rem] leading-none tracking-[0.05em] transition-colors hover:text-spark">
                     {item.label}
                   </Link>
                 </li>
@@ -38,65 +62,22 @@ export function Footer() {
           </nav>
 
           <div>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-navy-300">Connect</h2>
-            <ul className="space-y-3">
-              {socialLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 text-navy-100 transition-colors hover:text-spark"
-                  >
-                    {link.label === "YouTube" ? <YouTubeGlyph className="size-5" /> : <InstagramGlyph className="size-5" />}
-                    {link.handle}
-                    <span className="sr-only"> on {link.label} (opens in a new tab)</span>
-                  </a>
-                </li>
-              ))}
-              <li>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="inline-flex items-center gap-2.5 break-all text-navy-100 transition-colors hover:text-spark"
-                >
-                  <MailGlyph className="size-5 shrink-0" />
-                  {site.email}
-                </a>
-              </li>
-              <li className="pt-2 text-navy-300">
-                Based in {site.location.city}, {site.location.country}
-              </li>
-            </ul>
+            <a
+              href="#main"
+              className="inline-flex items-center gap-2 border-[3px] border-ink bg-tape px-4 py-2.5 font-display text-[1.25rem] leading-none tracking-[0.05em] text-ink shadow-comic transition-[translate,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-comic-md"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden className="size-5">
+                <path d="M12 20V5M6 11l6-6 6 6" fill="none" stroke="currentColor" strokeWidth="2.4" />
+              </svg>
+              Back to top
+            </a>
           </div>
         </div>
+
+        <div className="mt-12 border-t-[3px] border-white/20 pt-6">
+          <p className="font-display text-[1.1rem] tracking-[0.05em] text-navy-100">© Project INSPYR. Led by students, made in Pune.</p>
+        </div>
       </Container>
-
-      {/* Decorative watermark, drawn as SVG so it reads as artwork rather than text. */}
-      <div aria-hidden className="mt-16 select-none overflow-hidden">
-        <svg viewBox="0 0 1000 190" className="mx-auto block h-auto w-full max-w-[1500px]">
-          <text
-            x="470"
-            y="182"
-            textAnchor="middle"
-            fill="#0b1b36"
-            fontFamily="var(--font-fredoka), sans-serif"
-            fontWeight={700}
-            fontSize="232"
-            letterSpacing="-4"
-          >
-            INSPYR
-          </text>
-        </svg>
-      </div>
-
-      <div className="border-t border-white/10">
-        <Container className="flex flex-col gap-2 py-6 text-sm text-navy-300 sm:flex-row sm:items-center sm:justify-between">
-          <p>© Project INSPYR. Led by students, made in Pune.</p>
-          <Link href="/privacy" className="transition-colors hover:text-white">
-            Privacy
-          </Link>
-        </Container>
-      </div>
     </footer>
   );
 }

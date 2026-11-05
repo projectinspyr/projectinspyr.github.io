@@ -7,21 +7,39 @@ export const home = {
   },
 
   hero: {
-    eyebrow: "Student-led · Pune, India",
+    eyebrow: "Student-led. Pune, India.",
     // The headline is the tagline from content/site.ts.
     valueProp:
       "Project INSPYR is a team of students in Pune who volunteer alongside NGOs and service organizations, then turn that work into short films people actually stop scrolling for.",
     primaryCta: { label: "Partner with us", href: "/partners" },
     secondaryCta: { label: "Follow our work" }, // links to Instagram
-    bridgeLeft: "NGOs & service organizations",
-    bridgeRight: "The public",
   },
 
-  marquee: ["Volunteer", "Film", "Amplify", "Pune", "Repeat", "Students", "Reels", "Real work"],
+  // The bridge poster under the pinned note.
+  bridge: {
+    title: "The bridge",
+    body: "Organizations doing the work on one side. The public on the other. We carry the spark across.",
+    left: "NGOs & service organizations",
+    right: "The public",
+  },
+
+  // The big name block, next to the logo.
+  intro: {
+    line: "Led by students.",
+    body: "We are a group of students who believe young people can create real change, and we are just getting started.",
+    primary: { label: "How it works", href: "#how" },
+    secondary: { label: "Who we are", href: "/about" },
+    stickers: ["BOOM!", "POW!", "Youth power"],
+  },
+
+  marquee: ["Amplifying stories", "Awareness", "Recognition", "Across Pune and India"],
+  marqueeAction: ["Become a partner", "Volunteer", "Follow our work", "Get involved"],
 
   whatWeDo: {
     eyebrow: "What we do",
     title: "Two ways we close the [[gap]].",
+    handsCaption: "Extra hands first",
+    bubble: "They call us the future. We would rather start now.",
     intro:
       "Good work happens across Pune every day. Most of it goes unseen. We work on both sides of that problem.",
     pillars: [
@@ -64,10 +82,10 @@ export const home = {
   manifesto: {
     eyebrow: "Why we do this",
     paragraphs: [
-      "They call us the future. We would rather [[start now]].",
+      "They call us the future. We would rather {{start now}}.",
       "We are students. No titles, no budgets, no permission slips. What we do have is time, cameras in our pockets, and a generation that scrolls past a thousand things a day.",
       "Right now, somewhere in Pune, someone is serving meals, teaching a class nobody funds, or caring for people the rest of the city walks past. Most of it will never be seen.",
-      "The problem was never a shortage of good people. It is a shortage of people {{paying attention}}.",
+      "The problem was never a shortage of good people. It is a shortage of people [[paying attention]].",
       "So we pick a side. We show up, we do the work with them, and we make sure the city sees it. We are just getting started.",
     ],
     signature: "The INSPYR team",
@@ -77,7 +95,8 @@ export const home = {
     eyebrow: "From the field",
     title: "Short films, [[real]] work.",
     intro: "Reels and shorts, one to three minutes each, about the people and organizations we work with.",
-    emptyTitle: "Our featured reels are in the edit.",
+    emptyTag: "Coming soon",
+    emptyTitle: "Featured reels: TBA",
     emptyBody:
       "This is where our best reels will live. Until they land here, the full feed is on Instagram.",
   },
@@ -110,8 +129,9 @@ export const home = {
   },
 
   impact: {
-    eyebrow: "So far",
-    title: "Early numbers, [[honestly]] counted.",
+    eyebrow: "The scoreboard",
+    title: "Numbers, [[honestly]] counted.",
+    intro: "We only post what we can count. These fill in as the work does.",
   },
 
   partnersStrip: {

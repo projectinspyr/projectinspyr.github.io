@@ -26,6 +26,15 @@ export const rightBank = `M${width} ${deckY} H${right - 14} L${right + 22} ${hei
 /** Share of the drawing width each bank's flat top covers, for placing labels on it. */
 export const bankShare = (left - 22) / width;
 
+/** Corner points for a comic impact star centred on 0,0. */
+export function burstPoints(outer: number, inner: number, tips: number) {
+  return Array.from({ length: tips * 2 }, (_, i) => {
+    const r = i % 2 === 0 ? outer : inner;
+    const a = (Math.PI * i) / tips - Math.PI / 2;
+    return `${(r * Math.cos(a)).toFixed(1)},${(r * Math.sin(a)).toFixed(1)}`;
+  }).join(" ");
+}
+
 /** y on the arch for a given x. */
 export function archY(x: number) {
   const t = (x - left) / span;

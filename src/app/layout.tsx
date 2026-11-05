@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Caveat, Fredoka, Instrument_Sans } from "next/font/google";
+import { Bebas_Neue, Permanent_Marker, Plus_Jakarta_Sans } from "next/font/google";
 import { site } from "@content/site";
 import { Analytics } from "@/components/analytics";
 import { Footer } from "@/components/layout/footer";
@@ -10,30 +10,24 @@ import { siteUrl } from "@/lib/site-url";
 import { plain } from "@/lib/utils";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const display = Bebas_Neue({
+  variable: "--font-bebas",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+const body = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
 
-const body = Instrument_Sans({
-  variable: "--font-instrument",
+// Hand-lettered tags and speech bubbles.
+const marker = Permanent_Marker({
+  variable: "--font-permanent-marker",
   subsets: ["latin"],
-  display: "swap",
-});
-
-// Rounded face for the INSPYR logo lockup.
-const logo = Fredoka({
-  variable: "--font-fredoka",
-  subsets: ["latin"],
-  weight: ["700"],
-  display: "swap",
-});
-
-const hand = Caveat({
-  variable: "--font-caveat",
-  subsets: ["latin"],
-  weight: ["600"],
+  weight: "400",
   display: "swap",
   preload: false,
 });
@@ -58,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e2241",
+  themeColor: "#1e2c4f",
   colorScheme: "dark",
 };
 
@@ -66,7 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-IN"
-      className={`${display.variable} ${body.variable} ${logo.variable} ${hand.variable}`}
+      className={`${display.variable} ${body.variable} ${marker.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -76,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <a
           href="#main"
-          className="fixed left-4 top-4 z-[110] -translate-y-24 rounded-full bg-spark px-5 py-3 font-semibold text-navy-900 transition-transform focus:translate-y-0"
+          className="fixed left-4 top-4 z-[110] -translate-y-24 border-[3px] border-ink bg-spark px-5 py-3 font-display text-xl tracking-wider text-ink shadow-comic transition-transform focus:translate-y-0"
         >
           Skip to content
         </a>
@@ -87,7 +81,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <Footer />
         </Providers>
-        <div aria-hidden className="grain" />
         <OrganizationJsonLd />
         <Analytics />
       </body>

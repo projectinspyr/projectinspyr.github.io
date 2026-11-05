@@ -4,19 +4,18 @@ import { cn, isExternal } from "@/lib/utils";
 import { Arrow, ArrowUpRight } from "./doodles";
 import { Magnetic } from "../motion/magnetic";
 
-type Variant = "primary" | "secondary" | "ink" | "spark";
+type Variant = "primary" | "navy" | "spark" | "tape" | "white";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-signal-deep text-white shadow-[0_0_0_0_rgb(242_58_58/0)] hover:shadow-[0_14px_44px_-12px_rgb(242_58_58/0.85)]",
-  secondary:
-    "border border-white/25 text-white hover:border-spark hover:text-spark bg-white/[0.03] backdrop-blur-sm",
-  ink: "bg-navy-800 text-white hover:bg-navy-700",
-  spark: "bg-spark text-navy-900 hover:bg-spark-soft",
+  primary: "bg-signal-deep text-white",
+  navy: "bg-navy-800 text-white",
+  spark: "bg-spark text-ink",
+  tape: "bg-tape text-ink",
+  white: "bg-white text-ink",
 };
 
 const base =
-  "group relative inline-flex h-12 items-center justify-center gap-2.5 overflow-hidden rounded-full px-6 text-[0.98rem] font-semibold tracking-[-0.005em] transition-[background-color,border-color,color,box-shadow] duration-300 ease-[var(--ease-spring)] select-none disabled:cursor-not-allowed disabled:opacity-60";
+  "group relative inline-flex h-[3.25rem] items-center justify-center gap-2.5 border-[3px] border-ink px-7 font-display text-[1.3rem] leading-none tracking-[0.05em] shadow-comic transition-[translate,box-shadow] duration-150 select-none hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-comic-md active:translate-x-1 active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:opacity-60";
 
 type ButtonLinkProps = {
   href: string;
@@ -39,12 +38,10 @@ export function ButtonLink({
   const glyph = icon ?? (external ? "external" : "arrow");
   const content = (
     <>
-      <span>{children}</span>
-      {glyph === "arrow" && (
-        <Arrow className="size-[1.1em] transition-transform duration-300 ease-[var(--ease-spring)] group-hover:translate-x-1" />
-      )}
+      <span className="pt-[0.08em]">{children}</span>
+      {glyph === "arrow" && <Arrow className="size-[1em] transition-transform duration-200 group-hover:translate-x-1" />}
       {glyph === "external" && (
-        <ArrowUpRight className="size-[1.05em] transition-transform duration-300 ease-[var(--ease-spring)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        <ArrowUpRight className="size-[0.95em] transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       )}
       {external && <span className="sr-only"> (opens in a new tab)</span>}
     </>

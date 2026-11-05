@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Rich } from "./rich";
-import { Spark } from "./doodles";
+import { Rich, type Surface } from "./rich";
 
 const tones = {
   base: "bg-navy-800",
@@ -23,7 +22,7 @@ export function Section({ id, tone = "base", className, children, labelledBy }: 
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn("relative py-20 sm:py-24 lg:py-32", tones[tone], className)}
+      className={cn("relative border-b-4 border-ink py-20 lg:py-28", tones[tone], className)}
     >
       {children}
     </section>
@@ -31,13 +30,34 @@ export function Section({ id, tone = "base", className, children, labelledBy }: 
 }
 
 export function Container({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn("mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12", className)}>{children}</div>;
+  return <div className={cn("mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8", className)}>{children}</div>;
 }
 
-export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
+const tagColors = {
+  tape: "bg-tape text-ink",
+  spark: "bg-spark text-ink",
+  navy: "bg-navy-900 text-white",
+  white: "bg-white text-ink",
+} as const;
+
+/** A hand-lettered label, like a sticker slapped above a headline. */
+export function Eyebrow({
+  children,
+  className,
+  color = "tape",
+}: {
+  children: ReactNode;
+  className?: string;
+  color?: keyof typeof tagColors;
+}) {
   return (
-    <p className={cn("flex items-center gap-2 text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-navy-200", className)}>
-      <Spark className="size-3.5 text-spark" />
+    <p
+      className={cn(
+        "inline-block -rotate-1 border-[3px] border-ink px-3 py-1 font-marker text-[0.85rem] leading-snug shadow-comic-sm",
+        tagColors[color],
+        className,
+      )}
+    >
       {children}
     </p>
   );
@@ -46,23 +66,35 @@ export function Eyebrow({ children, className }: { children: ReactNode; classNam
 type HeadingProps = {
   id?: string;
   eyebrow?: string;
+  eyebrowColor?: keyof typeof tagColors;
   title: string;
   intro?: string;
   className?: string;
   align?: "left" | "center";
+  surface?: Surface;
 };
 
-export function SectionHeading({ id, eyebrow, title, intro, className, align = "left" }: HeadingProps) {
+export function SectionHeading({
+  id,
+  eyebrow,
+  eyebrowColor,
+  title,
+  intro,
+  className,
+  align = "left",
+  surface = "navy",
+}: HeadingProps) {
   return (
-    <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)} data-reveal>
-      {eyebrow && <Eyebrow className={cn("mb-5", align === "center" && "justify-center")}>{eyebrow}</Eyebrow>}
-      <h2
-        id={id}
-        className="text-[clamp(2.25rem,7vw,4.75rem)] font-extrabold leading-[0.95] tracking-[-0.035em]"
-      >
-        <Rich text={title} />
+    <div className={cn("max-w-4xl", align === "center" && "mx-auto text-center", className)} data-reveal>
+      {eyebrow && <Eyebrow color={eyebrowColor} className="mb-4">{eyebrow}</Eyebrow>}
+      <h2 id={id} className="text-[clamp(2.75rem,6.4vw,4.5rem)] leading-[0.98]">
+        <Rich text={title} surface={surface} />
       </h2>
-      {intro && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-navy-200 sm:text-xl">{intro}</p>}
+      {intro && (
+        <p className={cn("mt-5 max-w-2xl text-lg leading-relaxed", surface === "navy" ? "text-navy-100" : "text-ink", align === "center" && "mx-auto")}>
+          {intro}
+        </p>
+      )}
     </div>
   );
 }

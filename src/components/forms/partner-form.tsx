@@ -51,7 +51,7 @@ function PartnerFormInner({ onReset }: { onReset: () => void }) {
       <Honeypot />
 
       <fieldset aria-describedby={errors.partnerType ? "f-partnerType-error" : undefined}>
-        <legend className="mb-3 text-[0.95rem] font-semibold text-navy-900">{copy.typeLegend}</legend>
+        <legend className="mb-3 text-[0.95rem] font-bold text-ink">{copy.typeLegend}</legend>
         <div className="grid gap-3 md:grid-cols-3">
           {partnerTypes.map((t) => (
             <label key={t.value} className="relative block cursor-pointer">
@@ -65,25 +65,25 @@ function PartnerFormInner({ onReset }: { onReset: () => void }) {
               />
               <span
                 className={cn(
-                  "flex h-full flex-col rounded-2xl border-2 bg-white p-5 transition-[border-color,background-color,box-shadow] duration-300",
-                  "peer-checked:border-navy-800 peer-checked:bg-navy-800 peer-checked:text-white peer-checked:shadow-[0_18px_40px_-20px_rgb(20_48_90/0.8)]",
-                  "peer-focus-visible:outline peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-navy-800",
-                  errors.partnerType ? "border-signal-ink" : "border-navy-800/15 hover:border-navy-800/40",
+                  "flex h-full flex-col border-[3px] bg-white p-5 shadow-comic transition-colors duration-150",
+                  "peer-checked:bg-navy-800 peer-checked:text-white",
+                  "peer-focus-visible:outline peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink",
+                  errors.partnerType ? "border-signal-ink" : "border-ink hover:bg-tape/50",
                 )}
               >
-                <span className="flex items-start justify-between gap-3 font-display text-lg font-bold leading-tight">
+                <span className="flex items-start justify-between gap-3 font-display text-[1.5rem] leading-[1.05] tracking-[0.03em]">
                   {t.label}
                   <span
                     aria-hidden
                     className={cn(
-                      "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border-2 transition-colors",
-                      type === t.value ? "border-spark bg-spark" : "border-navy-800/30",
+                      "mt-0.5 grid size-5 shrink-0 place-items-center border-[3px] transition-colors",
+                      type === t.value ? "border-ink bg-spark" : "border-ink bg-white",
                     )}
                   >
-                    {type === t.value && <span className="size-2 rounded-full bg-navy-900" />}
+                    {type === t.value && <span className="size-1.5 bg-ink" />}
                   </span>
                 </span>
-                <span className={cn("mt-2 text-sm leading-snug", type === t.value ? "text-navy-100" : "text-navy-700")}>
+                <span className={cn("mt-2 text-sm leading-snug", type === t.value ? "text-navy-100" : "text-navy-500")}>
                   {t.description}
                 </span>
               </span>
@@ -137,7 +137,7 @@ function PartnerFormInner({ onReset }: { onReset: () => void }) {
               </>
             )}
 
-            <div className="h-px bg-navy-800/10" />
+            <div className="h-[3px] bg-ink/15" />
 
             <div className="grid gap-6 sm:grid-cols-2">
               <TextField name="name" label={copy.name.label} placeholder={copy.name.placeholder} autoComplete="name" required error={errors.name} />

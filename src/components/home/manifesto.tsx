@@ -3,7 +3,7 @@
 import { m, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 import { home } from "@content/pages/home";
-import { parseRich, toneClass, type Tone } from "../ui/rich";
+import { parseRich, type Tone } from "../ui/rich";
 import { Container, Eyebrow } from "../ui/section";
 
 /** `glue` marks a word that touches the previous one, like the full stop after a highlight. */
@@ -26,9 +26,9 @@ function toWords(paragraphs: string[]) {
 const paragraphs = toWords(home.manifesto.paragraphs);
 const total = paragraphs.flat().length;
 
-// Unlit words stay readable (3.4:1 on the section background) and warm to their colour as they light up.
-const UNLIT = "#5a6780";
-const LIT: Record<Tone, string> = { plain: "#ffffff", spark: "#f5c518", signal: "#f23a3a" };
+// Unlit words stay readable (4:1 on the section background) and warm to their colour as they light up.
+const UNLIT = "#6f7b96";
+const LIT: Record<Tone, string> = { plain: "#ffffff", accent: "#ff2e4c", alt: "#ffd100" };
 
 function ScrollWord({ word, progress }: { word: Word; progress: MotionValue<number> }) {
   const start = word.index / total;
@@ -47,20 +47,19 @@ export function Manifesto() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.78", "end 0.62"] });
 
   return (
-    <section aria-labelledby="manifesto-title" className="relative overflow-hidden bg-navy-950 py-24 sm:py-32 lg:py-40">
-      <div aria-hidden className="absolute left-1/2 top-0 h-px w-[80%] -translate-x-1/2 bg-gradient-to-r from-transparent via-spark/40 to-transparent" />
+    <section aria-labelledby="manifesto-title" className="relative overflow-hidden border-b-4 border-ink bg-navy-950 py-24 sm:py-32">
       <Container>
-        <Eyebrow className="mb-10">
+        <Eyebrow color="spark" className="mb-10">
           <span id="manifesto-title">{home.manifesto.eyebrow}</span>
         </Eyebrow>
-        <div ref={ref} className="max-w-[22ch] space-y-[1.3em] font-display text-[clamp(1.7rem,5vw,4.1rem)] font-bold leading-[1.13] tracking-[-0.028em] sm:max-w-[24ch]">
+        <div ref={ref} className="max-w-[34ch] space-y-[1em] font-display text-[clamp(2.25rem,5.6vw,4.5rem)] leading-[1.06] tracking-[0.015em]">
           {paragraphs.map((words, p) => (
-            <p key={p} className={p === 0 ? "pb-[0.25em] text-[1.18em] font-extrabold leading-[1.04]" : undefined}>
+            <p key={p} className={p === 0 ? "pb-[0.2em] text-[1.25em] leading-[1]" : undefined}>
               {words.map((word, i) => (
                 <span key={word.index}>
                   {i > 0 && !word.glue ? " " : ""}
                   {reduced ? (
-                    <span className={toneClass[word.tone]}>{word.text}</span>
+                    <span style={{ color: LIT[word.tone] }}>{word.text}</span>
                   ) : (
                     <ScrollWord word={word} progress={scrollYProgress} />
                   )}
@@ -69,7 +68,7 @@ export function Manifesto() {
             </p>
           ))}
         </div>
-        <p data-reveal className="mt-14 font-hand text-3xl text-spark">— {home.manifesto.signature}</p>
+        <p data-reveal className="mt-12 font-marker text-2xl text-spark">— {home.manifesto.signature}</p>
       </Container>
     </section>
   );

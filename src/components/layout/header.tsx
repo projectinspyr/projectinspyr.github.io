@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -8,19 +8,15 @@ import { site } from "@content/site";
 import { cn } from "@/lib/utils";
 import { Wordmark } from "../brand/wordmark";
 import { ButtonLink } from "../ui/button";
-import { InstagramGlyph, Spark } from "../ui/doodles";
+import { InstagramGlyph } from "../ui/doodles";
 import { scroller } from "../motion/smooth-scroll";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [prevPath, setPrevPath] = useState(pathname);
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
 
   if (prevPath !== pathname) {
     setPrevPath(pathname);
@@ -65,19 +61,11 @@ export function Header() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header
-      ref={headerRef}
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500",
-        scrolled || open
-          ? "border-b border-white/10 bg-navy-900/85 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent",
-      )}
-    >
-      <div className="mx-auto flex h-[72px] w-full max-w-[1320px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-12">
-        <Link href="/" className="relative z-10 -my-1 block">
-          <Wordmark id="logo-header" showLine={false} className="w-[118px] sm:w-[132px]" />
-          <span className="sr-only">Project INSPYR home</span>
+    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 border-b-4 border-ink bg-navy-800/95 backdrop-blur-md">
+      <div className="mx-auto flex h-[72px] w-full max-w-[1280px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="relative z-10 block">
+          <Wordmark />
+          <span className="sr-only"> home</span>
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
@@ -87,22 +75,15 @@ export function Header() {
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "group relative rounded-full px-4 py-2 text-[0.97rem] font-medium transition-colors",
-                isActive(item.href) ? "text-white" : "text-navy-200 hover:text-white",
+                "px-3.5 py-2 font-display text-[1.3rem] leading-none tracking-[0.05em] transition-colors hover:text-spark",
+                isActive(item.href) ? "text-spark" : "text-white",
               )}
             >
               {item.label}
-              <span
-                aria-hidden
-                className={cn(
-                  "absolute inset-x-4 bottom-1 h-[2px] origin-left rounded-full bg-spark transition-transform duration-300 ease-[var(--ease-spring)]",
-                  isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
-                )}
-              />
             </Link>
           ))}
-          <span className="ml-4">
-            <ButtonLink href="/partners" magnetic className="h-11 px-5">
+          <span className="ml-3">
+            <ButtonLink href="/partners" magnetic icon="none" className="h-11 px-5 text-[1.2rem]">
               Partner with us
             </ButtonLink>
           </span>
@@ -112,25 +93,15 @@ export function Header() {
           ref={toggleRef}
           id="menu-toggle"
           type="button"
-          className="relative z-10 -mr-2 grid size-12 place-items-center rounded-full md:hidden"
+          className="relative z-10 grid size-11 place-items-center border-[3px] border-ink bg-signal-deep shadow-comic-sm md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-          <span aria-hidden className="relative block h-3.5 w-6">
-            <span
-              className={cn(
-                "absolute left-0 top-0 h-[2px] w-6 rounded-full bg-white transition-transform duration-300",
-                open && "translate-y-[6px] rotate-45",
-              )}
-            />
-            <span
-              className={cn(
-                "absolute bottom-0 left-0 h-[2px] rounded-full bg-white transition-[transform,width] duration-300",
-                open ? "w-6 -translate-y-[6px] -rotate-45" : "w-4",
-              )}
-            />
+          <span aria-hidden className="relative block h-3.5 w-5">
+            <span className={cn("absolute left-0 top-0 h-[3px] w-5 bg-white transition-transform duration-200", open && "translate-y-[5.5px] rotate-45")} />
+            <span className={cn("absolute bottom-0 left-0 h-[3px] w-5 bg-white transition-transform duration-200", open && "-translate-y-[5.5px] -rotate-45")} />
           </span>
         </button>
       </div>
@@ -142,39 +113,36 @@ export function Header() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="fixed inset-0 top-[72px] h-[calc(100dvh-72px)] overflow-y-auto bg-navy-900 md:hidden"
+            className="fixed inset-0 top-[76px] h-[calc(100dvh-76px)] overflow-y-auto bg-spark text-ink md:hidden"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             data-lenis-prevent
           >
-            <nav aria-label="Mobile" className="flex min-h-full flex-col justify-between px-5 pb-10 pt-8">
-              <ul className="space-y-1">
+            <nav aria-label="Mobile" className="on-yellow halftone-blue flex min-h-full flex-col justify-between px-5 pb-10 pt-8">
+              <ul className="space-y-3">
                 {[{ label: "Home", href: "/" }, ...site.nav].map((item, i) => (
                   <m.li
                     key={item.href}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.12 + i * 0.06, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 + i * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <Link
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
-                      className="flex items-center justify-between border-b border-white/10 py-4 font-display text-[2.6rem] font-extrabold leading-none tracking-[-0.03em]"
+                      className={cn(
+                        "block border-4 border-ink px-5 py-3 font-display text-[2.6rem] leading-none tracking-[0.03em] shadow-comic",
+                        pathname === item.href ? "bg-navy-800 text-white" : "bg-white text-ink",
+                      )}
                     >
                       {item.label}
-                      {pathname === item.href && <Spark className="size-6 text-spark" />}
                     </Link>
                   </m.li>
                 ))}
               </ul>
-              <m.div
-                className="mt-10 space-y-5"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
+              <div className="mt-10 space-y-4">
                 <ButtonLink href="/partners" className="w-full">
                   Partner with us
                 </ButtonLink>
@@ -182,13 +150,13 @@ export function Header() {
                   href={site.social.instagram.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 text-navy-200"
+                  className="flex items-center justify-center gap-2 font-semibold text-ink"
                 >
                   <InstagramGlyph className="size-5" />
                   {site.social.instagram.handle}
                   <span className="sr-only"> on Instagram (opens in a new tab)</span>
                 </a>
-              </m.div>
+              </div>
             </nav>
           </m.div>
         )}
