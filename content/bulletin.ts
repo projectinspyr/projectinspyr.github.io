@@ -4,7 +4,7 @@
  */
 import data from "./data/bulletin.json";
 
-export type BulletinAction = { label: string; href: string; style?: "primary" | "navy" };
+export type BulletinAction = { label: string; href: string; style?: "primary" | "navy" | "link" };
 
 export type Announcement = {
   tag: string;
@@ -25,7 +25,7 @@ const toAnnouncement = (note: typeof data.pinned): Announcement => ({
   tag: note.tag,
   title: note.title.filter(Boolean),
   body: note.body,
-  actions: note.actions.map((a) => ({ label: a.label, href: a.href, style: a.style === "navy" ? "navy" : "primary" })),
+  actions: note.actions.map((a) => ({ label: a.label, href: a.href, style: a.style === "navy" || a.style === "link" ? a.style : "primary" })),
 });
 
 export const pinned: Announcement | null = data.showPinned ? toAnnouncement(data.pinned) : null;

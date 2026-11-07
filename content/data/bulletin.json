@@ -6,12 +6,22 @@
       "Project [[INSPYR]]",
       "Essay competition"
     ],
-    "body": "Details: TBA. Follow us on Instagram to hear first.",
+    "body": "Sign-ups are open. Register through the [VKE student form](https://tally.so/r/7XqjEz) or the [non-VKE student form](https://tally.so/r/Dq25eX), and read the [full details](#essay-competition) below.",
     "actions": [
+      {
+        "label": "Sign up: VKE students",
+        "href": "https://tally.so/r/7XqjEz",
+        "style": "primary"
+      },
+      {
+        "label": "Sign up: non-VKE students",
+        "href": "https://tally.so/r/Dq25eX",
+        "style": "navy"
+      },
       {
         "label": "Follow for updates",
         "href": "https://instagram.com/projectinspyr",
-        "style": "primary"
+        "style": "link"
       }
     ]
   },

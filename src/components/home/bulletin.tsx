@@ -1,13 +1,40 @@
+import { Fragment } from "react";
 import { nothingPinned, pinned, slides } from "@content/bulletin";
+import { isExternal } from "@/lib/utils";
 import { ButtonLink } from "../ui/button";
 import { PushPin } from "../ui/doodles";
 import { Rich } from "../ui/rich";
 import { Container } from "../ui/section";
 import { BulletinSlides } from "./bulletin-slides";
 
+const linkClass =
+  "whitespace-nowrap font-semibold text-signal-deep underline decoration-2 underline-offset-[3px] transition-colors hover:text-ink";
+
+/** Turns "[words](address)" in the note's text into links. */
+function Linked({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(\[[^\]]+\]\([^)\s]+\))/g).map((part, i) => {
+        const match = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+        if (!match) return <Fragment key={i}>{part}</Fragment>;
+        const [, label, href] = match;
+        const external = isExternal(href);
+        return (
+          <a key={i} href={href} className={linkClass} {...(external && { target: "_blank", rel: "noopener noreferrer" })}>
+            {label}
+            {external && <span className="sr-only"> (opens in a new tab)</span>}
+          </a>
+        );
+      })}
+    </>
+  );
+}
+
 /** The note pinned to the yellow wall. All wording lives in content/bulletin.ts. */
 export function Bulletin() {
   const note = pinned ?? nothingPinned;
+  const buttons = note.actions?.filter((a) => a.style !== "link") ?? [];
+  const textLinks = note.actions?.filter((a) => a.style === "link") ?? [];
 
   return (
     <>
@@ -41,16 +68,26 @@ export function Bulletin() {
               ))}
             </h2>
 
-            <p className="mx-auto mt-4 max-w-md text-navy-500">{note.body}</p>
+            <p className="mx-auto mt-4 max-w-md leading-relaxed text-navy-500">
+              <Linked text={note.body} />
+            </p>
 
-            {note.actions && note.actions.length > 0 && (
+            {buttons.length > 0 && (
               <div className="mt-8 flex flex-wrap justify-center gap-4">
-                {note.actions.map((action) => (
-                  <ButtonLink key={action.label} href={action.href} variant={action.style ?? "primary"}>
+                {buttons.map((action) => (
+                  <ButtonLink key={action.label} href={action.href} variant={action.style === "navy" ? "navy" : "primary"}>
                     {action.label}
                   </ButtonLink>
                 ))}
               </div>
+            )}
+
+            {textLinks.length > 0 && (
+              <p className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+                {textLinks.map((action) => (
+                  <Linked key={action.label} text={`[${action.label}](${action.href})`} />
+                ))}
+              </p>
             )}
           </div>
         </div>

@@ -39,7 +39,7 @@ const note = (label: string) =>
     {
       tag: text("Small tag", "The hand-written line at the top, like “pinned announcement”."),
       title: strings("Headline lines", "Line"),
-      body: paragraph("Text"),
+      body: paragraph("Text", "To link words, write [the words](https://the-address), or [the words](#essay-competition) for a section on this page."),
       actions: fields.array(
         fields.object({
           label: required("Button text"),
@@ -49,6 +49,7 @@ const note = (label: string) =>
             options: [
               { label: "Red", value: "primary" },
               { label: "Navy", value: "navy" },
+              { label: "Small text link", value: "link" },
             ],
             defaultValue: "primary",
           }),
@@ -70,7 +71,7 @@ export default config({
   ui: {
     brand: { name: "Project INSPYR" },
     navigation: {
-      "Bulletin board": ["bulletin"],
+      "Bulletin board": ["bulletin", "essay"],
       Pages: ["home", "about", "partnersPage", "contact", "privacy", "notFound"],
       Lists: ["faqs", "reels", "partners", "team", "impact"],
       Settings: ["site"],
@@ -106,6 +107,36 @@ export default config({
             description: "Each poster is one slide. Drag to reorder.",
             itemLabel: (props) => props.fields.alt.value || (props.fields.image.value ? "Poster" : "Empty frame (TBA)"),
           },
+        ),
+      },
+    }),
+
+    essay: singleton({
+      label: "Essay competition",
+      path: "content/data/essay",
+      format: json,
+      schema: {
+        show: fields.checkbox({ label: "Show this section on the home page", defaultValue: true }),
+        eyebrow: text("Small label"),
+        title: headline(),
+        intro: paragraph("Intro"),
+        categories: fields.array(
+          fields.object({
+            name: required("Category"),
+            vke: required("Who it covers at VKE"),
+            others: required("Who it covers at other schools"),
+          }),
+          { label: "Age groups", itemLabel: (props) => props.fields.name.value || "Category" },
+        ),
+        prompts: fields.array(
+          fields.object({ title: required("Prompt title"), question: paragraph("Prompt") }),
+          { label: "Prompts", itemLabel: (props) => props.fields.title.value || "Prompt" },
+        ),
+        rulesTitle: text("Rules heading"),
+        rules: paragraph("Rules"),
+        signups: fields.array(
+          fields.object({ label: required("Button text"), href: required("Link", "The full address of the sign-up form.") }),
+          { label: "Sign-up buttons", itemLabel: (props) => props.fields.label.value || "Button" },
         ),
       },
     }),

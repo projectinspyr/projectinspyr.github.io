@@ -1,0 +1,60 @@
+{
+  "show": true,
+  "eyebrow": "Essay competition",
+  "title": "Pick a prompt. Make it [[yours]].",
+  "intro": "Open to students from grade 7 to 12, in a Junior and a Senior category. Choose one of seven prompts on climate and sustainability, then sign up with the form for your school.",
+  "categories": [
+    {
+      "name": "Junior",
+      "vke": "MYP 2, 3 or 4",
+      "others": "7th, 8th, or 9th grade"
+    },
+    {
+      "name": "Senior",
+      "vke": "MYP 5, DP 1 or 2",
+      "others": "10th, 11th, or 12th grade"
+    }
+  ],
+  "prompts": [
+    {
+      "title": "Your Plan of Action",
+      "question": "If you could change the way we address one specific climate issue in the world, what would it be and how would you go about it?"
+    },
+    {
+      "title": "The Economic Reality",
+      "question": "What step towards advancement are we currently taking that is taking us two steps behind in sustainability?"
+    },
+    {
+      "title": "The Climate Change Hypocrisy",
+      "question": "Do we practice what we preach, or does our desire for comfort and convenience contradict our promises to protect the planet?"
+    },
+    {
+      "title": "Who Pays the Bill",
+      "question": "The communities that did the least to cause climate change are often the ones suffering most from it. Who owes them, and what should repayment look like beyond money?"
+    },
+    {
+      "title": "Postcard from 2050",
+      "question": "Imagine the world got climate action right. To you, what would an ordinary day in 2050 look like, and which decision we make today made it possible?"
+    },
+    {
+      "title": "The Vegetarian Myth",
+      "question": "Is being vegetarian as good for sustainability as people claim, or are we giving it more credit than it deserves? Justify."
+    },
+    {
+      "title": "Nature vs. Culture",
+      "question": "Food is tied to religion, tradition and identity. Is it fair to ask communities to change what they eat for the sake of the climate?"
+    }
+  ],
+  "rulesTitle": "Terms and conditions",
+  "rules": "I will ensure that my essay is entirely my original work and will not plagiarize or use AI tools to generate its content. I will express my own thoughts, opinions and arguments honestly, acknowledge all external sources used, and ensure that no facts or statistics are fabricated. I will complete the essay independently without any unauthorized and/or external assistance. I understand that any violation of these conditions may result in my disqualification from the competition.",
+  "signups": [
+    {
+      "label": "Sign up: VKE students",
+      "href": "https://tally.so/r/7XqjEz"
+    },
+    {
+      "label": "Sign up: non-VKE students",
+      "href": "https://tally.so/r/Dq25eX"
+    }
+  ]
+}
