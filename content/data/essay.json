@@ -2,7 +2,7 @@
   "show": true,
   "eyebrow": "Essay competition",
   "title": "Pick a prompt. Make it [[yours]].",
-  "intro": "Open to students from grade 7 to 12, in a Junior and a Senior category. Choose one of seven prompts on climate and sustainability, then sign up with the form for your school.",
+  "intro": "Open to students from grade 7 to 12, in a Junior and a Senior category. Choose one of seven prompts on climate and sustainability, then submit the essay with the form for your school.",
   "categories": [
     {
       "name": "Junior",
@@ -49,11 +49,11 @@
   "rules": "I will ensure that my essay is entirely my original work and will not plagiarize or use AI tools to generate its content. I will express my own thoughts, opinions and arguments honestly, acknowledge all external sources used, and ensure that no facts or statistics are fabricated. I will complete the essay independently without any unauthorized and/or external assistance. I understand that any violation of these conditions may result in my disqualification from the competition.",
   "signups": [
     {
-      "label": "Sign up: VKE students",
+      "label": "Submit: VKE students",
       "href": "https://tally.so/r/7XqjEz"
     },
     {
-      "label": "Sign up: non-VKE students",
+      "label": "Submit: non-VKE students",
       "href": "https://tally.so/r/Dq25eX"
     }
   ]
