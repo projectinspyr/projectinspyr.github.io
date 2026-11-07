@@ -1,17 +1,4 @@
-export const contactPage = {
-  meta: {
-    title: "Reach out",
-    description: "Reach out to Project INSPYR as an organization or partner, or as a student.",
-    ogTitle: "Reach [[out]].",
-  },
+/** Contact page copy. Edited in /keystatic (Pages → Contact page); stored in data/contact.json. */
+import data from "../data/contact.json";
 
-  hero: {
-    eyebrow: "Contact",
-    title: "Reach [[out]].",
-    intro: "A real student reads every message.",
-  },
-
-  direct: {
-    prefix: "Prefer email?",
-  },
-};
+export const contactPage = data;

@@ -1,16 +1,11 @@
-import type { Metadata } from "next";
 import { notFoundPage } from "@content/pages/not-found";
-import { BrokenBridge } from "@/components/brand/broken-bridge";
-import { ButtonLink } from "@/components/ui/button";
-import { Rich } from "@/components/ui/rich";
-import { Container, Eyebrow } from "@/components/ui/section";
+import { BrokenBridge } from "./brand/broken-bridge";
+import { ButtonLink } from "./ui/button";
+import { Rich } from "./ui/rich";
+import { Container, Eyebrow } from "./ui/section";
 
-export const metadata: Metadata = {
-  title: "Page not found",
-  robots: { index: false },
-};
-
-export default function NotFound() {
+/** The 404 page body: an unfinished bridge. */
+export function NotFoundView() {
   return (
     <section aria-labelledby="nf-title" className="on-yellow relative overflow-hidden bg-spark pb-16 pt-28 text-ink sm:pt-32">
       <div aria-hidden className="halftone-blue absolute inset-0" />

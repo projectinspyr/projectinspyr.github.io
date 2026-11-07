@@ -1,0 +1,43 @@
+{
+  "showPinned": true,
+  "pinned": {
+    "tag": "pinned announcement",
+    "title": [
+      "Project [[INSPYR]]",
+      "Essay competition"
+    ],
+    "body": "Details: TBA. Follow us on Instagram to hear first.",
+    "actions": [
+      {
+        "label": "Follow for updates",
+        "href": "https://instagram.com/projectinspyr",
+        "style": "primary"
+      }
+    ]
+  },
+  "nothingPinned": {
+    "tag": "bulletin board",
+    "title": [
+      "Nothing pinned",
+      "right [[now]]"
+    ],
+    "body": "Check back soon, or follow us on Instagram to hear first.",
+    "actions": [
+      {
+        "label": "Follow for updates",
+        "href": "https://instagram.com/projectinspyr",
+        "style": "primary"
+      }
+    ]
+  },
+  "slides": [
+    {
+      "image": null,
+      "alt": "",
+      "href": ""
+    },
+    {},
+    {},
+    {}
+  ]
+}

@@ -1,22 +1,22 @@
 /**
- * Featured reels on the home page.
- *
- * Paste the public link to a YouTube video or Short, or an Instagram reel.
- * YouTube links play on the page; Instagram links show a styled card that
- * opens the reel on Instagram.
- *
- * Example:
- * { url: "https://www.youtube.com/shorts/VIDEO_ID", title: "A morning at the food drive", partner: "Organization name" },
- * { url: "https://www.instagram.com/reel/REEL_ID/", title: "Behind the scenes" },
+ * Featured reels on the home page. Edited in /keystatic (Lists → Reels);
+ * stored in data/reels.json. YouTube links play on the page; Instagram links
+ * show a styled card that opens the reel on Instagram.
  */
+import data from "./data/reels.json";
+
 export type Reel = {
   url: string;
   title: string;
-  /** Optional: the organization featured in the reel. */
+  /** The organization featured in the reel. */
   partner?: string;
 };
 
-export const reels: Reel[] = [];
+export const reels: Reel[] = (data.reels as Array<{ url: string; title: string; partner: string }>).map((r) => ({
+  url: r.url,
+  title: r.title,
+  partner: r.partner || undefined,
+}));
 
-/** The "Short films, real work" section is hidden for now. Set to true to show it again. */
-export const showReelsSection = false;
+/** The "Short films, real work" section is hidden until this is switched on. */
+export const showReelsSection: boolean = data.show;

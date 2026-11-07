@@ -1,15 +1,9 @@
 /**
- * The bulletin board at the top of the home page.
- *
- * `pinned` is the note on the yellow wall: change it whenever there is news.
- * Each line of `title` becomes its own line; [[words]] turn red.
- * Add `actions` once there are real links, for example:
- * actions: [
- *   { label: "Read more", href: "https://example.org/details", style: "navy" },
- *   { label: "Register!", href: "https://forms.gle/your-form", style: "primary" },
- * ],
- * Set `pinned` to null when there is nothing to announce.
+ * The bulletin board at the top of the home page: the pinned note and the
+ * poster slider. Edited in /keystatic (Bulletin board); stored in data/bulletin.json.
  */
+import data from "./data/bulletin.json";
+
 export type BulletinAction = { label: string; href: string; style?: "primary" | "navy" };
 
 export type Announcement = {
@@ -19,33 +13,28 @@ export type Announcement = {
   actions?: BulletinAction[];
 };
 
-export const pinned: Announcement | null = {
-  tag: "pinned announcement",
-  title: ["Project [[INSPYR]]", "Essay competition"],
-  body: "Details: TBA. Follow us on Instagram to hear first.",
-  actions: [{ label: "Follow for updates", href: "https://instagram.com/projectinspyr", style: "primary" }],
-};
-
-/** Shown on the note when `pinned` is null. */
-export const nothingPinned: Announcement = {
-  tag: "bulletin board",
-  title: ["Nothing pinned", "right [[now]]"],
-  body: "Check back soon, or follow us on Instagram to hear first.",
-  actions: [{ label: "Follow for updates", href: "https://instagram.com/projectinspyr", style: "primary" }],
-};
-
-/**
- * The posters in the slider under the note. They are 16:9 (1600 x 900 works well).
- * Put poster images in /public/board, then fill in a slide, for example:
- * { image: "/board/essay-competition.png", alt: "Essay competition poster", href: "https://forms.gle/your-form" },
- * A slide without an image shows an empty frame marked TBA.
- */
 export type BulletinSlide = {
   image?: string;
-  /** Describe the poster for people who can't see it. Required with an image. */
+  /** Describes the poster for people who can't see it. */
   alt?: string;
-  /** Optional: where the poster links to when pressed. */
+  /** Where the poster links to when pressed. */
   href?: string;
 };
 
-export const slides: BulletinSlide[] = [{}, {}, {}, {}];
+const toAnnouncement = (note: typeof data.pinned): Announcement => ({
+  tag: note.tag,
+  title: note.title.filter(Boolean),
+  body: note.body,
+  actions: note.actions.map((a) => ({ label: a.label, href: a.href, style: a.style === "navy" ? "navy" : "primary" })),
+});
+
+export const pinned: Announcement | null = data.showPinned ? toAnnouncement(data.pinned) : null;
+
+/** Shown on the note when nothing is pinned. */
+export const nothingPinned: Announcement = toAnnouncement(data.nothingPinned);
+
+export const slides: BulletinSlide[] = (data.slides as Array<{ image: string | null; alt: string; href: string }>).map((s) => ({
+  image: s.image || undefined,
+  alt: s.alt || undefined,
+  href: s.href || undefined,
+}));

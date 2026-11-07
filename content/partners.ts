@@ -1,13 +1,10 @@
 /**
- * Organizations Project INSPYR has worked with. The logo strip on the home
- * page only appears once this list has at least one entry.
- *
- * Logos go in /public/partners, e.g. logo: "/partners/example.svg".
- * Without a logo, the name is shown in type instead.
- *
- * Example:
- * { name: "Organization name", type: "service", url: "https://example.org", logo: "/partners/example.svg" },
+ * Organizations Project INSPYR has worked with. Edited in /keystatic
+ * (Lists → Partner organizations); stored in data/partners.json. The logo
+ * strip on the home page only appears once there is at least one entry.
  */
+import data from "./data/partners.json";
+
 export type Partner = {
   name: string;
   type: "service" | "sponsor" | "school";
@@ -15,4 +12,6 @@ export type Partner = {
   logo?: string;
 };
 
-export const partners: Partner[] = [];
+export const partners: Partner[] = (
+  data.partners as Array<{ name: string; type: Partner["type"]; url: string; logo: string | null }>
+).map((p) => ({ name: p.name, type: p.type, url: p.url || undefined, logo: p.logo || undefined }));

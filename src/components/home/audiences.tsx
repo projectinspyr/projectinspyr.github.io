@@ -37,7 +37,7 @@ export function Audiences() {
 
         <ul className="mt-12 grid gap-7 md:grid-cols-3">
           {audiences.cards.map((card, i) => {
-            const href = card.href ?? site.social.instagram.href;
+            const href = card.href || site.social.instagram.href;
             const external = isExternal(href);
             const linkClass =
               "mt-6 inline-flex items-center gap-2 border-[3px] border-ink bg-spark px-3 py-1.5 font-display text-[1.2rem] leading-none tracking-[0.05em] text-ink shadow-comic-sm after:absolute after:inset-0 after:content-['']";

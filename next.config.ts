@@ -10,6 +10,12 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // The /keystatic editor redirects localhost to 127.0.0.1 during local setup.
+  allowedDevOrigins: ["127.0.0.1"],
+  experimental: {
+    // The site and the /keystatic editor have separate root layouts, so 404s need their own file.
+    globalNotFound: true,
+  },
   turbopack: {
     rules: {
       "*.css": {

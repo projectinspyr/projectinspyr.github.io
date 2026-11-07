@@ -1,10 +1,12 @@
 /**
- * Site settings. Everything the whole site shares lives here.
+ * Site settings. The editable parts live in data/site.json and are changed
+ * in the editor at /keystatic (Settings → Site settings).
  *
  * Text markers used across /content:
  *   [[words]]  highlight in red (only in big headlines)
  *   {{words}}  highlight in yellow
  */
+import data from "./data/site.json";
 
 export type SocialLink = {
   label: string;
@@ -12,46 +14,24 @@ export type SocialLink = {
   href: string;
 };
 
-/**
- * Tagline options. The logo line "led by students" is fixed; this is the
- * headline promise. To switch, change the index on `tagline` below.
- *   0. We show up. Then we tell the story.   (current stand-in)
- *   1. Where good work gets seen.
- *   2. Young hands. Loud stories.
- */
-export const taglines = [
-  "We show up. Then we tell the [[story]].",
-  "Where good work gets [[seen]].",
-  "Young hands. [[Loud]] stories.",
-] as const;
-
 export const site = {
   name: "Project INSPYR",
   shortName: "INSPYR",
   lockupLine: "led by students",
-  tagline: taglines[0] as string,
-  description:
-    "Project INSPYR is a student-led team from Pune that volunteers with NGOs and service organizations, then turns their work into short films people actually watch.",
-  instagramBio: "Amplifying stories, awareness & recognition across Pune and India.",
-  location: { city: "Pune", country: "India", countryCode: "IN" },
-  email: "inspyrproject@gmail.com",
-  responseTime: "We reply within 3 working days.",
-
-  /**
-   * Production URL, e.g. "https://projectinspyr.org". Leave empty until a
-   * domain exists: NEXT_PUBLIC_SITE_URL or the Vercel production URL is used.
-   */
-  url: "",
+  tagline: data.tagline,
+  description: data.description,
+  instagramBio: data.instagramBio,
+  location: { city: data.city, country: data.country, countryCode: "IN" },
+  email: data.email,
+  responseTime: data.responseTime,
+  /** Production URL. Empty until there is a domain: NEXT_PUBLIC_SITE_URL or the Vercel URL is used. */
+  url: data.url,
 
   social: {
-    instagram: {
-      label: "Instagram",
-      handle: "@projectinspyr",
-      href: "https://instagram.com/projectinspyr",
-    } as SocialLink,
-    // Add the channel when it exists, e.g.
-    // { label: "YouTube", handle: "@projectinspyr", href: "https://youtube.com/@projectinspyr" }
-    youtube: null as SocialLink | null,
+    instagram: { label: "Instagram", handle: data.instagramHandle, href: data.instagramUrl } as SocialLink,
+    youtube: (data.youtubeUrl
+      ? { label: "YouTube", handle: data.youtubeHandle || "YouTube", href: data.youtubeUrl }
+      : null) as SocialLink | null,
   },
 
   nav: [

@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "title": "Privacy",
+    "description": "What Project INSPYR collects through this website and how it is used.",
+    "ogTitle": "Privacy, [[plainly]]."
+  },
+  "title": "Privacy, [[plainly]].",
+  "updated": "Last updated: November 2026",
+  "sections": [
+    {
+      "heading": "What we collect",
+      "body": [
+        "When you send a message, we receive what you type into the form: your name, email address, and any details you choose to share, such as your organization.",
+        "We do not ask for anything else, and we do not create accounts."
+      ]
+    },
+    {
+      "heading": "How we use it",
+      "body": [
+        "We use your details only to reply to you and to plan any work we do together. We do not sell, rent or trade your information, and we do not add you to mailing lists."
+      ]
+    },
+    {
+      "heading": "Who processes it",
+      "body": [
+        "Form messages are delivered to our team inbox by an email delivery service. The site is hosted on Vercel.",
+        "If analytics are switched on, we use a privacy-friendly service that counts page visits without cookies and without identifying you personally."
+      ]
+    },
+    {
+      "heading": "Videos and links",
+      "body": [
+        "Videos only load from YouTube after you press play, using YouTube's privacy-enhanced mode. Links to Instagram and YouTube take you to those platforms, which have their own privacy policies."
+      ]
+    },
+    {
+      "heading": "Your choices",
+      "body": [
+        "You can ask us to show you or delete anything you have sent us. Email us at the address below and we will take care of it."
+      ]
+    }
+  ]
+}

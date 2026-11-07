@@ -1,0 +1,46 @@
+{
+  "about": [
+    {
+      "question": "Who runs Project INSPYR?",
+      "answer": "A team of students based in Pune. Every role, from writing scripts to reaching out to organizations, is held by a student."
+    },
+    {
+      "question": "Where do you work?",
+      "answer": "Pune is home, and that is where we volunteer in person. The stories we tell are for audiences across India."
+    },
+    {
+      "question": "Where can I watch your reels?",
+      "answer": "Everything we publish goes up on our Instagram, @projectinspyr. Our featured films are also collected on the home page."
+    },
+    {
+      "question": "Can I join the team?",
+      "answer": "We are a student team and we are growing. Message us on Instagram or use the contact form, and tell us what you would like to work on."
+    },
+    {
+      "question": "How can my organization work with you?",
+      "answer": "Head to the Contact page and reach out as an organization or partner. We will get back to you and set up a conversation."
+    }
+  ],
+  "partners": [
+    {
+      "question": "Do we need a big following or a marketing budget?",
+      "answer": "No. If your work is real and you are open to having us there, that is enough to start."
+    },
+    {
+      "question": "Can you film without volunteering?",
+      "answer": "Our model is volunteering first. Working alongside you is how we understand your work well enough to tell it honestly."
+    },
+    {
+      "question": "Do we get to see the reel before it goes live?",
+      "answer": "Yes. We share the cut with you before publishing, so nothing about your work goes out without your knowledge."
+    },
+    {
+      "question": "How long does a partnership take?",
+      "answer": "It depends on your schedule and ours. We agree on dates and scope together before anything is filmed."
+    },
+    {
+      "question": "Do you work outside Pune?",
+      "answer": "On the ground, Pune is home. If you are elsewhere in India, get in touch anyway and tell us what you have in mind."
+    }
+  ]
+}

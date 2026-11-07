@@ -6,12 +6,21 @@ export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
 
 const INK = "#0d0d0d";
-const fontDir = join(process.cwd(), "node_modules/@fontsource");
-const assets = Promise.all([
-  readFile(join(fontDir, "bebas-neue/files/bebas-neue-latin-400-normal.woff")),
-  readFile(join(fontDir, "plus-jakarta-sans/files/plus-jakarta-sans-latin-700-normal.woff")),
-  readFile(join(process.cwd(), "public/brand/logo.png"), "base64"),
-]);
+
+/*
+ * Cached so the reads finish during the build: uncached file reads can leave a
+ * share image to be rendered per request instead of prerendered.
+ */
+async function loadAssets() {
+  "use cache";
+  const fontDir = join(process.cwd(), "node_modules/@fontsource");
+  const [display, body, logo] = await Promise.all([
+    readFile(join(fontDir, "bebas-neue/files/bebas-neue-latin-400-normal.woff"), "base64"),
+    readFile(join(fontDir, "plus-jakarta-sans/files/plus-jakarta-sans-latin-700-normal.woff"), "base64"),
+    readFile(join(process.cwd(), "public/brand/logo.png"), "base64"),
+  ]);
+  return { display, body, logo };
+}
 
 function segments(title: string) {
   return title
@@ -28,7 +37,7 @@ function segments(title: string) {
 
 /** Share card: a note taped to the yellow halftone wall, like the top of the home page. */
 export async function renderOg({ title, eyebrow }: { title: string; eyebrow: string }) {
-  const [display, body, logo] = await assets;
+  const { display, body, logo } = await loadAssets();
   const segs = segments(title);
   // Each word is a list of coloured parts, so a full stop after a highlight stays attached to its word.
   const words: Array<Array<{ w: string; color: string }>> = [];
@@ -120,8 +129,8 @@ export async function renderOg({ title, eyebrow }: { title: string; eyebrow: str
     {
       ...ogSize,
       fonts: [
-        { name: "Bebas", data: display, weight: 400, style: "normal" },
-        { name: "Jakarta", data: body, weight: 700, style: "normal" },
+        { name: "Bebas", data: Buffer.from(display, "base64"), weight: 400, style: "normal" },
+        { name: "Jakarta", data: Buffer.from(body, "base64"), weight: 700, style: "normal" },
       ],
     },
   );

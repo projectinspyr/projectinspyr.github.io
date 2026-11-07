@@ -1,7 +1,4 @@
-export const notFoundPage = {
-  eyebrow: "Error 404",
-  title: "This bridge isn't [[built]] yet.",
-  body: "The page you were looking for does not exist, or it moved. Head back and try another way across.",
-  primary: { label: "Back to home", href: "/" },
-  secondary: { label: "Contact us", href: "/contact" },
-};
+/** 404 page copy. Edited in /keystatic (Pages → Page not found); stored in data/not-found.json. */
+import data from "../data/not-found.json";
+
+export const notFoundPage = data;

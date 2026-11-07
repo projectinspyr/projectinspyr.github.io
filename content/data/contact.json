@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "Reach out",
+    "description": "Reach out to Project INSPYR as an organization or partner, or as a student.",
+    "ogTitle": "Reach [[out]]."
+  },
+  "hero": {
+    "eyebrow": "Contact",
+    "title": "Reach [[out]].",
+    "intro": "A real student reads every message."
+  },
+  "direct": {
+    "prefix": "Prefer email?"
+  }
+}

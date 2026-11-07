@@ -1,18 +1,18 @@
 /**
- * The numbers panel on the home page. It stays hidden while this list is
- * empty. Add it back once there is real work to count: use real, countable
- * numbers only. `value: null` shows "TBA" on a card.
- *
- * Example:
- * { value: 12, label: "Partner organizations" },
- * { value: 40, suffix: "+", label: "Reels published" },
- * { value: 25, label: "Volunteer days" },
- * { value: 60, label: "Students involved" },
+ * The numbers panel on the home page. Edited in /keystatic (Lists → Numbers);
+ * stored in data/impact.json. Hidden while empty. Use real, countable numbers
+ * only; a number left empty shows "TBA".
  */
+import data from "./data/impact.json";
+
 export type ImpactStat = {
   value: number | null;
   suffix?: string;
   label: string;
 };
 
-export const impact: ImpactStat[] = [];
+export const impact: ImpactStat[] = (data.stats as Array<{ value: number | null; suffix: string; label: string }>).map((s) => ({
+  value: s.value,
+  suffix: s.suffix || undefined,
+  label: s.label,
+}));
