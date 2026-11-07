@@ -86,7 +86,7 @@ Documented in `.env.example`. Set them in `.env.local` locally and in Vercel →
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `RESEND_API_KEY` | Yes, in production | Sends form submissions via [Resend](https://resend.com) |
-| `CONTACT_TO_EMAIL` | No | Inbox(es) for submissions. Defaults to `contactinspyrproject@gmail.com` |
+| `CONTACT_TO_EMAIL` | No | Inbox(es) for submissions. Defaults to `inspyrproject@gmail.com` |
 | `CONTACT_FROM_EMAIL` | Recommended | Sender, e.g. `Project INSPYR <hello@yourdomain.org>`. Must be on a domain verified in Resend |
 | `FORMS_DRY_RUN` | No | `true` logs submissions instead of sending (for testing) |
 | `NEXT_PUBLIC_SITE_URL` | Once you have a domain | Canonical URL for SEO, sitemap and share images |
@@ -96,7 +96,7 @@ Documented in `.env.example`. Set them in `.env.local` locally and in Vercel →
 ### Setting up email (Resend)
 
 1. Create a free account at resend.com and an API key. Put it in `RESEND_API_KEY`.
-2. Until a domain is verified, Resend's test sender `onboarding@resend.dev` only delivers to the email address that owns the Resend account. Sign up with `contactinspyrproject@gmail.com` so submissions arrive there from day one.
+2. Until a domain is verified, Resend's test sender `onboarding@resend.dev` only delivers to the email address that owns the Resend account. Sign up with `inspyrproject@gmail.com` so submissions arrive there from day one.
 3. Once you own a domain, add it in Resend → Domains, add the DNS records it shows, and set `CONTACT_FROM_EMAIL` to an address on that domain.
 
 Replies work naturally: every email sets Reply-To to the person who filled in the form.

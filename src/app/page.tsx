@@ -1,5 +1,6 @@
 import { impact } from "@content/impact";
 import { home } from "@content/pages/home";
+import { showReelsSection } from "@content/reels";
 import { CtaBand } from "@/components/cta-band";
 import { Audiences } from "@/components/home/audiences";
 import { BridgePanel } from "@/components/home/bridge-panel";
@@ -32,7 +33,7 @@ export default function HomePage() {
       <HowItWorks />
       <ImpactStrip eyebrow={home.impact.eyebrow} title={home.impact.title} intro={home.impact.intro} stats={impact} />
       <Manifesto />
-      <Reels />
+      {showReelsSection && <Reels />}
       <PartnerStrip />
       <Audiences />
       <Marquee items={home.marqueeAction} tone="red" />

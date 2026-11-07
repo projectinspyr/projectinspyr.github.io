@@ -17,3 +17,6 @@ export type Reel = {
 };
 
 export const reels: Reel[] = [];
+
+/** The "Short films, real work" section is hidden for now. Set to true to show it again. */
+export const showReelsSection = false;

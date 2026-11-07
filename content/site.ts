@@ -34,7 +34,7 @@ export const site = {
     "Project INSPYR is a student-led team from Pune that volunteers with NGOs and service organizations, then turns their work into short films people actually watch.",
   instagramBio: "Amplifying stories, awareness & recognition across Pune and India.",
   location: { city: "Pune", country: "India", countryCode: "IN" },
-  email: "contactinspyrproject@gmail.com",
+  email: "inspyrproject@gmail.com",
   responseTime: "We reply within 3 working days.",
 
   /**
