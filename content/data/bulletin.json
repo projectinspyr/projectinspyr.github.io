@@ -6,15 +6,15 @@
       "Project [[INSPYR]]",
       "Essay competition"
     ],
-    "body": "Sign-ups are open. Register through the [VKE student form](https://tally.so/r/7XqjEz) or the [non-VKE student form](https://tally.so/r/Dq25eX), and read the [full details](#essay-competition) below.",
+    "body": "Submissions are open. Submit your essay through the [VKE student form](https://tally.so/r/7XqjEz) or the [non-VKE student form](https://tally.so/r/Dq25eX), and read the [full details](#essay-competition) below.",
     "actions": [
       {
-        "label": "Sign up: VKE students",
+        "label": "Submit: VKE students",
         "href": "https://tally.so/r/7XqjEz",
         "style": "primary"
       },
       {
-        "label": "Sign up: non-VKE students",
+        "label": "Submit: non-VKE students",
         "href": "https://tally.so/r/Dq25eX",
         "style": "navy"
       },
@@ -41,11 +41,7 @@
     ]
   },
   "slides": [
-    {
-      "image": null,
-      "alt": "",
-      "href": ""
-    },
+    {},
     {},
     {},
     {}
