@@ -41,9 +41,11 @@
     ]
   },
   "slides": [
-    {},
-    {},
-    {},
-    {}
+    {
+      "image": "/board/slides/0/image.jpeg"
+    },
+    {
+      "image": "/board/slides/1/image.jpeg"
+    }
   ]
 }
