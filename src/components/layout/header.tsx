@@ -68,7 +68,7 @@ export function Header() {
           <span className="sr-only"> home</span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {site.nav.map((item) => (
             <Link
               key={item.href}
@@ -93,7 +93,7 @@ export function Header() {
           ref={toggleRef}
           id="menu-toggle"
           type="button"
-          className="relative z-10 grid size-11 place-items-center border-[3px] border-ink bg-signal-deep shadow-comic-sm md:hidden"
+          className="relative z-10 grid size-11 place-items-center border-[3px] border-ink bg-signal-deep shadow-comic-sm lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
@@ -113,7 +113,7 @@ export function Header() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="fixed inset-0 top-[76px] h-[calc(100dvh-76px)] overflow-y-auto bg-spark text-ink md:hidden"
+            className="fixed inset-0 top-[76px] h-[calc(100dvh-76px)] overflow-y-auto bg-spark text-ink lg:hidden"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}

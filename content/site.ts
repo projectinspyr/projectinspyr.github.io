@@ -7,6 +7,7 @@
  *   {{words}}  highlight in yellow
  */
 import data from "./data/site.json";
+import { essay } from "./essay";
 
 export type SocialLink = {
   label: string;
@@ -37,6 +38,7 @@ export const site = {
   nav: [
     { label: "About", href: "/about" },
     { label: "Partners", href: "/partners" },
+    ...(essay.show ? [{ label: "Essay competition", href: "/essay-competition" }] : []),
     { label: "Contact", href: "/contact" },
   ],
 };

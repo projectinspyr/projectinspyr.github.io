@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { essay } from "@content/essay";
 import { absoluteUrl } from "@/lib/site-url";
 
 const routes = [
@@ -6,6 +7,7 @@ const routes = [
   { path: "/about", priority: 0.8 },
   { path: "/partners", priority: 0.9 },
   { path: "/contact", priority: 0.7 },
+  ...(essay.show ? [{ path: "/essay-competition", priority: 0.8 }] : []),
   { path: "/privacy", priority: 0.3 },
 ];
 

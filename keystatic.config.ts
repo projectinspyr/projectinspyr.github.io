@@ -116,7 +116,8 @@ export default config({
       path: "content/data/essay",
       format: json,
       schema: {
-        show: fields.checkbox({ label: "Show this section on the home page", defaultValue: true }),
+        show: fields.checkbox({ label: "Show the essay competition page and its menu link", defaultValue: true }),
+        meta,
         eyebrow: text("Small label"),
         title: headline(),
         intro: paragraph("Intro"),

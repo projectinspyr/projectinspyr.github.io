@@ -4,7 +4,6 @@ import { showReelsSection } from "@content/reels";
 import { CtaBand } from "@/components/cta-band";
 import { Audiences } from "@/components/home/audiences";
 import { BridgePanel } from "@/components/home/bridge-panel";
-import { EssayCompetition } from "@/components/home/essay-competition";
 import { Bulletin } from "@/components/home/bulletin";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { ImpactStrip } from "@/components/home/impact";
@@ -27,7 +26,6 @@ export default function HomePage() {
   return (
     <>
       <Bulletin />
-      <EssayCompetition />
       <Intro />
       <Marquee items={home.marquee} />
       <BridgePanel />

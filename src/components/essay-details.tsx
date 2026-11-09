@@ -1,18 +1,14 @@
 import { essay } from "@content/essay";
 import { cn } from "@/lib/utils";
-import { ButtonLink } from "../ui/button";
-import { Container, Section, SectionHeading } from "../ui/section";
+import { ButtonLink } from "./ui/button";
+import { Container, Section } from "./ui/section";
 
-/** The essay competition, in detail, under the bulletin board. Wording lives in content/essay.ts. */
-export function EssayCompetition() {
-  if (!essay.show) return null;
-
+/** The essay competition page, below its hero. Wording lives in content/essay.ts. */
+export function EssayDetails() {
   return (
-    <Section id="essay-competition" tone="deep" labelledBy="essay-title" className="scroll-mt-[76px]">
+    <Section tone="deep" labelledBy="page-title">
       <Container>
-        <SectionHeading id="essay-title" eyebrow={essay.eyebrow} eyebrowColor="spark" title={essay.title} intro={essay.intro} />
-
-        <div data-reveal className="mt-12 grid gap-6 sm:grid-cols-2">
+        <div data-reveal className="grid gap-6 sm:grid-cols-2">
           {essay.categories.map((c, i) => (
             <div
               key={c.name}

@@ -1,5 +1,5 @@
 /**
- * The essay competition section on the home page, under the bulletin board.
+ * The essay competition page at /essay-competition.
  * Edited in /keystatic (Bulletin board > Essay competition); stored in data/essay.json.
  */
 import data from "./data/essay.json";
@@ -10,6 +10,7 @@ export type EssayLink = { label: string; href: string };
 
 export const essay = {
   show: data.show,
+  meta: data.meta,
   eyebrow: data.eyebrow,
   title: data.title,
   intro: data.intro,

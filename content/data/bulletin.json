@@ -6,17 +6,12 @@
       "Project [[INSPYR]]",
       "Essay competition"
     ],
-    "body": "Submissions are open. Submit your essay through the [VKE student form](https://tally.so/r/7XqjEz) or the [non-VKE student form](https://tally.so/r/Dq25eX), and read the [full details](#essay-competition) below.",
+    "body": "Submissions open on the 20th. Submit an essay on the theme of sustainability. Open to all high school students.",
     "actions": [
       {
-        "label": "Submit: VKE students",
-        "href": "https://tally.so/r/7XqjEz",
+        "label": "View More Details",
+        "href": "/essay-competition",
         "style": "primary"
-      },
-      {
-        "label": "Submit: non-VKE students",
-        "href": "https://tally.so/r/Dq25eX",
-        "style": "navy"
       },
       {
         "label": "Follow for updates",

@@ -1,8 +1,13 @@
 {
   "show": true,
+  "meta": {
+    "title": "Essay competition",
+    "description": "The Project INSPYR essay competition on sustainability: age groups, the seven prompts, the terms and how to submit.",
+    "ogTitle": "The essay [[competition]]"
+  },
   "eyebrow": "Essay competition",
   "title": "Pick a prompt. Make it [[yours]].",
-  "intro": "Open to students from grade 7 to 12, in a Junior and a Senior category. Choose one of seven prompts on climate and sustainability, then submit the essay with the form for your school.",
+  "intro": "Submissions open on the 20th. Open to students from grade 7 to 12, in a Junior and a Senior category. Choose one of seven prompts on climate and sustainability, then submit the essay with the form for your school.",
   "categories": [
     {
       "name": "Junior",
