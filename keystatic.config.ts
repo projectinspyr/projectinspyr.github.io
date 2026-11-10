@@ -66,7 +66,7 @@ export default config({
   storage:
     process.env.NEXT_PUBLIC_KEYSTATIC_STORAGE === "local"
       ? { kind: "local" }
-      : { kind: "github", repo: { owner: "ImZack12751", name: "project-inspyr" } },
+      : { kind: "github", repo: { owner: "projectinspyr", name: "projectinspyr.github.io" } },
 
   ui: {
     brand: { name: "Project INSPYR" },
@@ -93,9 +93,10 @@ export default config({
         nothingPinned: note("“Nothing pinned” note"),
         slides: fields.array(
           fields.object({
-            image: fields.image({
-              label: "Poster",
-              description: "16:9 works best, for example 1600 × 900 pixels. Leave empty to show a TBA frame.",
+            image: fields.file({
+              label: "Poster (picture or video)",
+              description:
+                "A picture (JPG, PNG, WebP) or a video (MP4 or WebM). 16:9 works best, for example 1600 × 900 pixels. Keep videos short and under about 25 MB. Leave empty to show a TBA frame.",
               directory: "public/board",
               publicPath: "/board/",
             }),

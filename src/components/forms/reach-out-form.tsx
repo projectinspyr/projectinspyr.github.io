@@ -3,9 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { formCopy, reachOutOptions } from "@content/forms";
-import { submitReachOut } from "@/app/actions";
 import { fieldErrorsFrom } from "@/lib/form-data";
 import { isReachOutAs, reachOutSchema, type ReachOutAs } from "@/lib/schemas";
+import { submitReachOut } from "@/lib/submit-reach-out";
 import { cn } from "@/lib/utils";
 import { FormAlert, Honeypot, SubmitButton, TextArea, TextField } from "./fields";
 import { FormSuccess } from "./form-success";

@@ -7,9 +7,13 @@ const securityHeaders = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
 ];
 
+// GitHub Pages build (PAGES_EXPORT=1): fully static, so no image server and no custom headers.
+const staticExport = process.env.PAGES_EXPORT === "1";
+
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  ...(staticExport ? { output: "export" as const, trailingSlash: true } : {}),
+  // Static export cannot use cacheComponents; scripts/prepare-pages.mjs adjusts the image routes for it.
+  ...(staticExport ? {} : { cacheComponents: true, partialPrefetching: true }),
   // The /keystatic editor redirects localhost to 127.0.0.1 during local setup.
   allowedDevOrigins: ["127.0.0.1"],
   experimental: {
@@ -27,10 +31,15 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
+    ...(staticExport ? { unoptimized: true } : {}),
   },
-  async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
-  },
+  ...(staticExport
+    ? {}
+    : {
+        async headers() {
+          return [{ source: "/(.*)", headers: securityHeaders }];
+        },
+      }),
 };
 
 export default nextConfig;

@@ -21,7 +21,20 @@ function Slide({ slide, index, total }: { slide: BulletinSlide; index: number; t
     );
   }
 
-  const picture = (
+  const isVideo = /\.(mp4|webm|mov|m4v|ogv)$/i.test(slide.image);
+  const picture = isVideo ? (
+    <video
+      src={slide.image}
+      aria-label={slide.alt || undefined}
+      className="absolute inset-0 size-full object-contain"
+      autoPlay
+      muted
+      loop
+      playsInline
+      controls={!slide.href}
+      preload="metadata"
+    />
+  ) : (
     <Image src={slide.image} alt={slide.alt ?? ""} fill sizes="(min-width: 1024px) 1024px, 100vw" className="object-contain" />
   );
   if (!slide.href) return picture;
